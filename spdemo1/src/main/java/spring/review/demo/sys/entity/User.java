@@ -1,7 +1,13 @@
 package spring.review.demo.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -13,35 +19,44 @@ import java.time.LocalDateTime;
  * @author abc
  * @since 2023-11-06
  */
-@TableName("t_user")
+@TableName("user")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户token
-     */
-    private String utoken;
+    @TableId(value = "user_id",type = IdType.AUTO)
+    private int id;
 
     /**
      * 用户名字
      */
+    @TableField("name")
     private String uname;
 
     /**
      * 用户性别1男0女
      */
+    @TableField("sex")
     private Integer usex;
 
     /**
      * 用户手机号
      */
+    @TableField("userphone")
     private String uphone;
 
     /**
      * 用户密码
      */
+    @TableField("password")
     private String upassword;
+
+    private int companyId;
+
+    private int userPower;
 
     /**
      * 创建时间
@@ -59,73 +74,5 @@ public class User implements Serializable {
      */
     private LocalDateTime updateTime;
 
-    public String getUtoken() {
-        return utoken;
-    }
 
-    public void setUtoken(String utoken) {
-        this.utoken = utoken;
-    }
-    public String getUname() {
-        return uname;
-    }
-
-    public void setUname(String uname) {
-        this.uname = uname;
-    }
-    public Integer getUsex() {
-        return usex;
-    }
-
-    public void setUsex(Integer usex) {
-        this.usex = usex;
-    }
-    public String getUphone() {
-        return uphone;
-    }
-
-    public void setUphone(String uphone) {
-        this.uphone = uphone;
-    }
-    public String getUpassword() {
-        return upassword;
-    }
-
-    public void setUpassword(String upassword) {
-        this.upassword = upassword;
-    }
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-    public String getreupassword() {
-        return reupassword;
-    }
-
-    public void setreupassword(String reupassword) {
-        this.reupassword = reupassword;
-    }
-    @Override
-    public String toString() {
-        return "User{" +
-            "utoken=" + utoken +
-            ", uname=" + uname +
-            ", usex=" + usex +
-            ", uphone=" + uphone +
-            ", upassword=" + upassword +
-            ", createTime=" + createTime +
-            ", updateTime=" + updateTime +
-                ", reupassword=" + reupassword +
-        "}";
-    }
 }
