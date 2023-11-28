@@ -23,6 +23,9 @@ dependencies:
   pinia:
     specifier: ^2.1.7
     version: registry.npmmirror.com/pinia@2.1.7(vue@3.3.7)
+  vant:
+    specifier: ^4.8.0
+    version: registry.npmmirror.com/vant@4.8.0(vue@3.3.7)
   vue:
     specifier: ^3.3.4
     version: registry.npmmirror.com/vue@3.3.7
@@ -577,6 +580,23 @@ packages:
     name: '@ungap/structured-clone'
     version: 1.2.0
     dev: true
+
+  registry.npmmirror.com/@vant/popperjs@1.3.0:
+    resolution: {integrity: sha512-hB+czUG+aHtjhaEmCJDuXOep0YTZjdlRR+4MSmIFnkCQIxJaXLQdSsR90XWvAI2yvKUI7TCGqR8pQg2RtvkMHw==, tarball: https://registry.npmmirror.com/@vant/popperjs/-/popperjs-1.3.0.tgz}
+    name: '@vant/popperjs'
+    version: 1.3.0
+    dev: false
+
+  registry.npmmirror.com/@vant/use@1.6.0(vue@3.3.7):
+    resolution: {integrity: sha512-PHHxeAASgiOpSmMjceweIrv2AxDZIkWXyaczksMoWvKV2YAYEhoizRuk/xFnKF+emUIi46TsQ+rvlm/t2BBCfA==, tarball: https://registry.npmmirror.com/@vant/use/-/use-1.6.0.tgz}
+    id: registry.npmmirror.com/@vant/use/1.6.0
+    name: '@vant/use'
+    version: 1.6.0
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: registry.npmmirror.com/vue@3.3.7
+    dev: false
 
   registry.npmmirror.com/@vitejs/plugin-vue@4.4.0(vite@4.5.0)(vue@3.3.7):
     resolution: {integrity: sha512-xdguqb+VUwiRpSg+nsc2HtbAUSGak25DXYvpQQi4RVU1Xq1uworyoH/md9Rfd8zMmPR/pSghr309QNcftUVseg==, tarball: https://registry.npmmirror.com/@vitejs/plugin-vue/-/plugin-vue-4.4.0.tgz}
@@ -3097,6 +3117,20 @@ packages:
     name: util-deprecate
     version: 1.0.2
     dev: true
+
+  registry.npmmirror.com/vant@4.8.0(vue@3.3.7):
+    resolution: {integrity: sha512-JeEcSd1zt0+fcSo/wuyvhF+dUdd1IaaJmrG0BTiUvH/XcBJEUaTSSEaYG0V8iI38xUTUCuDG+TSfSoSeEwGVAQ==, tarball: https://registry.npmmirror.com/vant/-/vant-4.8.0.tgz}
+    id: registry.npmmirror.com/vant/4.8.0
+    name: vant
+    version: 4.8.0
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@vant/popperjs': registry.npmmirror.com/@vant/popperjs@1.3.0
+      '@vant/use': registry.npmmirror.com/@vant/use@1.6.0(vue@3.3.7)
+      '@vue/shared': registry.npmmirror.com/@vue/shared@3.3.7
+      vue: registry.npmmirror.com/vue@3.3.7
+    dev: false
 
   registry.npmmirror.com/vite@4.5.0(sass@1.69.5):
     resolution: {integrity: sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw==, tarball: https://registry.npmmirror.com/vite/-/vite-4.5.0.tgz}

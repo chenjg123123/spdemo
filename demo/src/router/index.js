@@ -10,11 +10,30 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/views/Layout/LayoutContainer.vue'),
-      redirect: '/container/manager',
+      redirect: '/container',
       children: [
         {
-          path: '/container/manager',
-          component: () => import('@/views/Container/ContainerManager.vue')
+          path: '/container',
+          component: () => import('@/views/Container/ContainerManager.vue'),
+          redirect: '/container/search',
+          children: [
+            {
+              path: '/container/search',
+              component: () => import('@/views/Container/ContainerSearch.vue')
+            },
+            {
+              path: '/container/society',
+              component: () => import('@/views/Container/ContainerSociety.vue')
+            },
+            {
+              path: '/container/self',
+              component: () => import('@/views/Container/ContainerSelf.vue')
+            },
+            {
+              path: '/container/chat',
+              component: () => import('@/views/Container/ContainerChat.vue')
+            }
+          ]
         }
       ]
     }
@@ -22,3 +41,13 @@ const router = createRouter({
 })
 
 export default router
+// path: '/container',
+// component: () => import('@/views/Container/ContainerManager.vue'),
+// redirect: '/container/search',
+// children: [
+//   {
+//     path: '/container/search',
+//     component: () =>
+//       import('@/views/Container/Container/ContainerSearch.vue')
+//   }
+// ]
