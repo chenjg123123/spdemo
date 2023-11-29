@@ -1,11 +1,13 @@
 package spring.review.demo.sys.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import spring.review.demo.sys.common.Result;
+import spring.review.demo.sys.common.Token;
 import spring.review.demo.sys.entity.User;
 import spring.review.demo.sys.service.IUserService;
 import spring.review.demo.sys.utils.JwtUtils;
@@ -24,6 +26,7 @@ import java.util.Map;
  * @author abc
  * @since 2023-11-06
  */
+@Slf4j
 @RestController
 @RequestMapping("/sys/user")
 public class UserController {
@@ -41,13 +44,14 @@ public class UserController {
         queryWrapper.eq(User::getUphone, user.getUphone());
         //获得回传对象
         User one = userService.getOne(queryWrapper);
-        //获取时间数据
-        LocalDateTime now = LocalDateTime.now();
         if (one == null) {
             //符合没有相同手机号条件 进行注册
             //获取时间戳
+            //获取时间数据
+            LocalDateTime now = LocalDateTime.now();
             user.setCreateTime(now);
             user.setUpdateTime(now);
+            user.setCompanyId(1);
             //获取对象密码进行加密 （以修改为数据库中触发器加密)
             //user.setUpassword(DigestUtils.md5DigestAsHex(user.getUpassword().getBytes()));
             User user1 = userService.insertAndGet(user);
@@ -57,6 +61,15 @@ public class UserController {
         }
         return Result.error("手机号已使用");
     }
+
+    /**
+     *
+     * @param request
+     * @param user
+     * author: abc
+     * 登录接口
+     * @return
+     */
     @PostMapping("/login")
     public Result loginUser(HttpServletRequest request, @RequestBody User user){
         LambdaQueryWrapper<User>  queryWrapper = new LambdaQueryWrapper<>();
@@ -66,7 +79,6 @@ public class UserController {
         String password = user.getUpassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         boolean equals = password.equals(one.getUpassword());
-        System.out.println(equals);
         if(equals){
             // 构造JWT令牌中的Claims
             Map<String,Object> claims=new HashMap<>();
@@ -76,9 +88,10 @@ public class UserController {
 
             // 生成JWT令牌
             String jwt = JwtUtils.generateJwt(claims);
-
+            Token token = new Token(jwt);
+            log.info(token.getTokentest());
             //登录成功,返回JWT令牌
-            return Result.success(jwt);
+            return Result.success(token);
         }
         return Result.error("手机号或密码错误");
     }

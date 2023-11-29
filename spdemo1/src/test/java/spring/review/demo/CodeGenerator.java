@@ -9,12 +9,12 @@ import java.util.Collections;
 
 public class CodeGenerator {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/taskwork?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
+        String url = "jdbc:mysql://localhost:3306/link?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
         String username = "root";
         String password = "chenjg";
         String finalProjectPath = "D:\\Project\\JAVA\\spdemo1";
         String moduleName = "sys";
-        String tables = "t_user,t_order,t_orderdetail";
+        String tables = "companies,user,business_demands,messages,posts,user_tokens";
 
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {
@@ -28,8 +28,8 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, finalProjectPath + "/src/main/resources/mapper"));
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude(tables)
-                            .addTablePrefix("t_");
+                    builder.addInclude(tables);
+//                            .addTablePrefix("t_");
 //                            .enableTableFieldAnnotation(true)
 //                            .entityBuilderModel(true)
 //                            .entityLombokModel(true)

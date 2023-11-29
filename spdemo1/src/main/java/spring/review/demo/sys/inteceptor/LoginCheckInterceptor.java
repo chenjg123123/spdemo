@@ -36,7 +36,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         }
 
         // 获取请求头中的token
-        String jwt = request.getHeader("token");
+        String jwt = request.getHeader("Token");
 
         // 如果token为空，返回未登录信息
         if (!StringUtils.hasLength(jwt)) {
