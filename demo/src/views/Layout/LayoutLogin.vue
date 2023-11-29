@@ -3,6 +3,9 @@ import { ref, watch } from 'vue'
 import { userRegisterService, userLoginService } from '@/api/user.js'
 import { useRouter } from 'vue-router'
 import { User, Lock } from '@element-plus/icons-vue'
+import { useUserStore } from '@/stores'
+//OB
+const userStore = useUserStore()
 const router = useRouter()
 const form = ref()
 const formModel = ref({
@@ -52,7 +55,7 @@ const onRegister = async () => {
   if (isRegister.value) {
     //行动
     await form.value.validate()
-    await userRegisterService(formModel.value)
+    const res = await userRegisterService(formModel.value)
     isRegister.value = !isRegister.value
   } else {
     isRegister.value = !isRegister.value
@@ -64,7 +67,8 @@ const onLogin = async () => {
   } else {
     // 行动
     await form.value.validate()
-    await userLoginService(formModel.value)
+    const res = await userLoginService(formModel.value)
+    userStore.setToken(res.data.data.tokentest)
     router.push('/')
   }
 }

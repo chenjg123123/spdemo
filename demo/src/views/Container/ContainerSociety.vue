@@ -1,15 +1,8 @@
 <template>
   <div class="Header">社区</div>
   <div class="showMain">
-    <ShowPicture></ShowPicture>
-    <ShowPicture></ShowPicture>
-    <ShowPicture></ShowPicture>
-    <ShowPicture></ShowPicture>
-    <ShowPicture></ShowPicture>
-    <ShowPicture></ShowPicture>
-    <ShowPicture></ShowPicture>
-    <ShowPicture></ShowPicture>
-    <ShowPicture></ShowPicture>
+    <ShowPicture v-for="index in 10"></ShowPicture>
+
   </div>
 </template>
 

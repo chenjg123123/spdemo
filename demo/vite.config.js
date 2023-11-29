@@ -22,5 +22,17 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: { //同plugins同级
+    port: 8181,
+    // 默认是5173,这里可以自己指定
+    // 代理解决跨域
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080/sys/',  // 接口源地址
+        changeOrigin: true,   // 开启跨域
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      }
+    }
   }
 })

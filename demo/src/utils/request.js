@@ -1,19 +1,22 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores'
+
+const userStore = useUserStore()
 const router = useRouter()
-const baseURL = 'http://localhost:55555/sys'
+const baseURL = '/api'
 const instance = axios.create({
   baseURL,
   timeout: 10000
 })
-// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+
 
 instance.interceptors.request.use(
   function (config) {
-    // 在发送请求之前做些什么
-    // 请求服务端数据为json
-    // config.headers['Content-Type'] = 'application/json'
+    if (userStore.token) {
+      config.headers['Token'] = userStore.token
+    }
     return config
   },
   function (error) {

@@ -1,11 +1,17 @@
 <script setup>
 import { Plus } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import {userInterService} from '@/api/user.js'
 const searchKey = ref()
+//method
+const getinter = async () => {
+ const res =  await userInterService('123')
+ console.log(res);
+}
 </script>
 <template>
   <div class="Header">
-    <span>社区</span>
+    <span>搜索</span>
     <el-input
       style="width: 400px; margin-top: 20px; font-size: 30px; color: red"
       placeholder=""
@@ -22,7 +28,7 @@ const searchKey = ref()
     </el-scrollbar>
   </div>
   <div class="main">
-    <show-society v-for="index in 10"></show-society>
+    <show-society v-for="index in 10" @click="getinter"></show-society>
   </div>
 </template>
 

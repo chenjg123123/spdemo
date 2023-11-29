@@ -4,7 +4,10 @@ import { Tabbar, TabbarItem, Icon } from 'vant'
 </script>
 
 <template>
-  <RouterView />
+  <keep-alive>  
+    <RouterView />
+  </keep-alive>
+
   <div>
     <Tabbar route class="footer-tabbar">
       <TabbarItem replace to="/container/search">
@@ -21,6 +24,8 @@ import { Tabbar, TabbarItem, Icon } from 'vant'
       </TabbarItem>
     </Tabbar>
   </div>
+
+
 </template>
 
 <style scoped lang="scss">
