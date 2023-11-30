@@ -1,15 +1,20 @@
 package spring.review.demo.sys.inteceptor;
 
 import com.alibaba.fastjson.JSONObject;
+import io.jsonwebtoken.Claims;
+import lombok.Data;
 import spring.review.demo.sys.common.Result;
 import spring.review.demo.sys.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
+import spring.review.demo.sys.utils.RedisUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.Map;
 
 @Component
 @Slf4j
@@ -40,12 +45,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         // 如果token为空，返回未登录信息
         if (!StringUtils.hasLength(jwt)) {
-            log.info("请求头token为空，返回未登录信息");
-            Result error = Result.error("NOT_LOGIN");
+            Result error = Result.error("未登录");
             String notLogin = JSONObject.toJSONString(error);
             response.getWriter().write(notLogin);
             return false;
         }
+
+
+
 
         // 解析令牌，检查是否合法
         try {

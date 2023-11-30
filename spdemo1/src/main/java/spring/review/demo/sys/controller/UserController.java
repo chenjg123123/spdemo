@@ -11,6 +11,7 @@ import spring.review.demo.sys.common.Token;
 import spring.review.demo.sys.entity.User;
 import spring.review.demo.sys.service.IUserService;
 import spring.review.demo.sys.utils.JwtUtils;
+import spring.review.demo.sys.utils.RedisUtils;
 
 import java.time.LocalDateTime;
 
@@ -57,7 +58,8 @@ public class UserController {
             User user1 = userService.insertAndGet(user);
             if (user1 == null)
                 return Result.error("注册失败");
-            return Result.success(user1);
+
+            return Result.success(user1).add("msg","注册成功");
         }
         return Result.error("手机号已使用");
     }
@@ -89,9 +91,8 @@ public class UserController {
             // 生成JWT令牌
             String jwt = JwtUtils.generateJwt(claims);
             Token token = new Token(jwt);
-            log.info(token.getTokentest());
             //登录成功,返回JWT令牌
-            return Result.success(token);
+            return Result.success(token).add("msg","登陆成功");
         }
         return Result.error("手机号或密码错误");
     }

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import spring.review.demo.sys.common.Result;
 
 /**
@@ -15,12 +16,12 @@ import spring.review.demo.sys.common.Result;
  * @since 2023-11-28
  */
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/sys/companies")
 public class CompaniesController {
     @GetMapping("/inter")
     public Result userGetinter(String id){
         log.info("success");
-        return Result.error("success");
+        return Result.success("success");
     }
 }

@@ -22,6 +22,7 @@ public class Result<T> {
         Result<T> result = new Result<T>();
         result.data = object;
         result.code = 1;
+
         return result;
     }
 
