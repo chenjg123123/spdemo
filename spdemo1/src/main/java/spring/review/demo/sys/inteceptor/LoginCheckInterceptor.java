@@ -2,6 +2,7 @@ package spring.review.demo.sys.inteceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.Data;
 import spring.review.demo.sys.common.Result;
 import spring.review.demo.sys.utils.JwtUtils;
@@ -33,7 +34,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURL().toString();
         log.info("请求的url: {}", url);
-
+        response.setContentType("text/html;charset=UTF-8");
         // 登录接口放行
         if (url.contains("login")) {
             log.info("登录操作，放行");
@@ -56,13 +57,16 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         // 解析令牌，检查是否合法
         try {
-            JwtUtils.parseJWT(jwt);
+           Claims claims = JwtUtils.parseJWT(jwt);
+           if(claims == null){
+               Result error = Result.error("登陆过期");
+               String notLogin = JSONObject.toJSONString(error);
+               response.getWriter().write(notLogin);
+               return false;
+           }
         } catch (Exception e) {
             e.printStackTrace();
-            log.info("解析令牌失败，返回未登录错误信息");
-            Result error = Result.error("NOT_LOGIN");
-            String notLogin = JSONObject.toJSONString(error);
-            response.getWriter().write(notLogin);
+            log.info("解析令牌失败");
             return false;
         }
 

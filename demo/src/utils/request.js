@@ -30,7 +30,7 @@ instance.interceptors.response.use(
   function (response) {
     //成功接受
     if (response.data.code === 1 && response.status === 200) {
-      ElMessage({ message: response.data.msg, type: 'success' })
+      ElMessage({ message: response.data.map.msg, type: 'success' })
       return response
     }
     //失败
