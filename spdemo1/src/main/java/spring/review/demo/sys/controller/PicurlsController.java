@@ -5,14 +5,14 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 动态贴文表 前端控制器
+ *  前端控制器
  * </p>
  *
  * @author abc
- * @since 2023-11-28
+ * @since 2023-12-05
  */
 @Controller
-@RequestMapping("/sys/posts")
-public class PostsController {
+@RequestMapping("/sys/picurls")
+public class PicurlsController {
 
 }

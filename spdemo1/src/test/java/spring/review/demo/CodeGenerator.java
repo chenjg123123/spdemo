@@ -14,7 +14,7 @@ public class CodeGenerator {
         String password = "chenjg";
         String finalProjectPath = "D:\\Project\\JAVA\\spdemo1";
         String moduleName = "sys";
-        String tables = "companies,user,business_demands,messages,posts,user_tokens";
+        String tables = "companies,user,business_demands,messages,society,user_tokens,picurls";
 
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {

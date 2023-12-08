@@ -59,7 +59,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         try {
            Claims claims = JwtUtils.parseJWT(jwt);
            if(claims == null){
-               Result error = Result.error("登陆过期");
+               Result error = Result.login();
                String notLogin = JSONObject.toJSONString(error);
                response.getWriter().write(notLogin);
                return false;

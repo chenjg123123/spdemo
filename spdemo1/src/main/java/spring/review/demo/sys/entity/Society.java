@@ -1,78 +1,74 @@
 package spring.review.demo.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * <p>
- * 动态贴文表
+ * 
  * </p>
  *
  * @author abc
- * @since 2023-11-28
+ * @since 2023-12-05
  */
-public class Posts implements Serializable {
+public class Society implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 动态贴文表id
+     * 帖子ID
      */
-    @TableId(value = "post_id", type = IdType.AUTO)
-    private Integer postId;
+    @TableId(value = "SID", type = IdType.AUTO)
+    private Integer sid;
 
     /**
-     * 所属用户公司id
+     * 用户ID
      */
-    private Integer companiesId;
+    private Integer userid;
 
     /**
-     * 用户id
-     */
-    private Integer userId;
-
-    /**
-     * 贴文标题
+     * 标题
      */
     private String title;
 
     /**
-     * 贴文内容
+     * 内容
      */
+    @TableField(exist = false)
+    private String Username;
+
     private String content;
 
-    /**
-     * 创建时间
-     */
+    private Long picurlsid;
+
     private LocalDateTime createTime;
 
-    /**
-     * 修改时间
-     */
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
     private LocalDateTime updateTime;
 
-    public Integer getPostId() {
-        return postId;
+    public Integer getSid() {
+        return sid;
     }
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
+    public void setSid(Integer sid) {
+        this.sid = sid;
     }
-    public Integer getCompaniesId() {
-        return companiesId;
-    }
-
-    public void setCompaniesId(Integer companiesId) {
-        this.companiesId = companiesId;
-    }
-    public Integer getUserId() {
-        return userId;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
     public String getTitle() {
         return title;
@@ -87,6 +83,13 @@ public class Posts implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+    public Long getPicurlsid() {
+        return picurlsid;
+    }
+
+    public void setPicurlsid(Long picurlsid) {
+        this.picurlsid = picurlsid;
     }
     public LocalDateTime getCreateTime() {
         return createTime;
@@ -105,12 +108,12 @@ public class Posts implements Serializable {
 
     @Override
     public String toString() {
-        return "Posts{" +
-            "postId=" + postId +
-            ", companiesId=" + companiesId +
-            ", userId=" + userId +
+        return "Society{" +
+            "sid=" + sid +
+            ", userid=" + userid +
             ", title=" + title +
             ", content=" + content +
+            ", picurlsid=" + picurlsid +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
         "}";

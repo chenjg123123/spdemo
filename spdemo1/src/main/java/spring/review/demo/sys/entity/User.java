@@ -1,5 +1,6 @@
 package spring.review.demo.sys.entity;
 
+import com.alibaba.druid.sql.visitor.functions.Char;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -40,7 +41,7 @@ public class User implements Serializable {
      * 用户性别1男0女
      */
     @TableField("sex")
-    private Integer usex;
+    private Char usex;
 
     /**
      * 用户手机号
