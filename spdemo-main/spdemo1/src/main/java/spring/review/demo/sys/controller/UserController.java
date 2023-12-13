@@ -8,8 +8,10 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import spring.review.demo.sys.common.Result;
 import spring.review.demo.sys.common.Token;
+import spring.review.demo.sys.entity.Companies;
 import spring.review.demo.sys.entity.User;
 import spring.review.demo.sys.service.IUserService;
+import spring.review.demo.sys.service.impl.UserServiceImpl;
 import spring.review.demo.sys.utils.JwtUtils;
 import spring.review.demo.sys.utils.RedisUtils;
 
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +36,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private IUserService userService;
-
+    @Autowired
+    private UserServiceImpl userServiceimpl;
     /**
      * author:abc
      * 登录注册接口
@@ -95,5 +99,26 @@ public class UserController {
             return Result.success("token",token,"登陆成功");
         }
         return Result.error("手机号或密码错误");
+    }
+
+    //根据手机号码查询个人全部信息
+    @GetMapping("/personal")
+    public Result<List<User>> getUserByUphone(@RequestBody Map<String,String> requestBody){
+        String uphone=requestBody.get("uphone");
+        List<User> userList=userServiceimpl.getUserByPhone(uphone);
+        return Result.success("userList", userList, "查询成功");
+    }
+
+    //根据userId的外键companyId,查询公司信息
+    @GetMapping("/companies")
+    public Result<List<Companies>> getCompaniesByUserId(@RequestBody Map<String, Integer> requestBody) {
+        Integer userId = requestBody.get("userId");
+        List<Companies> companiesList = userServiceimpl.getCompaniesByUserId(userId);
+
+        if (companiesList != null && !companiesList.isEmpty()) {
+            return Result.success("companiesList", companiesList, "查询成功");
+        } else {
+            return Result.error("未找到对应企业");
+        }
     }
 }

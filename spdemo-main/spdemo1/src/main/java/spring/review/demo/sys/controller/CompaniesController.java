@@ -95,4 +95,6 @@ public class CompaniesController {
         return Result.success("list",list);
     }
 
+
+
 }

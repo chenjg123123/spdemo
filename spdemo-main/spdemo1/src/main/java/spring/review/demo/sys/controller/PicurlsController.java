@@ -15,6 +15,4 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/sys/picurls")
 public class PicurlsController {
 
-
-
 }

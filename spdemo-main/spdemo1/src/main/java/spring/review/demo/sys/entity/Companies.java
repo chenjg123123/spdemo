@@ -1,7 +1,12 @@
 package spring.review.demo.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -13,6 +18,9 @@ import java.time.LocalDateTime;
  * @author abc
  * @since 2023-11-28
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Companies implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,66 +61,13 @@ public class Companies implements Serializable {
      */
     private LocalDateTime updateDate;
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-    public Integer getCompanyScale() {
-        return companyScale;
-    }
-
-    public void setCompanyScale(Integer companyScale) {
-        this.companyScale = companyScale;
-    }
-    public String getIndustry() {
-        return industry;
-    }
-
-    public void setIndustry(String industry) {
-        this.industry = industry;
-    }
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-    public LocalDateTime getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(LocalDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Companies{" +
-            "companyId=" + companyId +
-            ", companyName=" + companyName +
-            ", companyScale=" + companyScale +
-            ", industry=" + industry +
-            ", description=" + description +
-            ", createDate=" + createDate +
-            ", updateDate=" + updateDate +
-        "}";
-    }
+    //头像
+    private String companyAvatar;
+    //地址
+    private String companyAddress;
+    //业务
+    private String companyBusiness;
+    //营业时间
+    @TableField("company_work_time")
+    private String companyWorkTime;
 }

@@ -14,7 +14,7 @@ public class CodeGenerator {
         String password = "123456";
         String finalProjectPath = "E:\\原来的一些软件什么的\\桌面\\cjg\\spdemo-main\\spdemo1";
         String moduleName = "sys";
-        String tables = "companies,user,business_demands,messages,society,user_tokens,picurls";
+        String tables = "companies,user,business_demands,messages,society,user_tokens,picurls,community";
 
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {
