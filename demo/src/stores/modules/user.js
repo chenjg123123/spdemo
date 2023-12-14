@@ -10,8 +10,10 @@ export const useUserStore = defineStore(
     const removeToken = () => {
       token.value = ''
     }
-
-    return { token, setToken, removeToken }
+    const userid = ref()
+    const messageId = ref()
+    const chat = ref()
+    return { token, setToken, removeToken, userid, messageId, chat }
   },
   {
     persist: true

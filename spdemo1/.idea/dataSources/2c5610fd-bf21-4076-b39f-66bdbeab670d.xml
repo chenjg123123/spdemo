@@ -966,16 +966,14 @@ SELECT|sys.sys_config
     <table id="303" parent="3" name="business_demands">
       <Comment>业务需求表</Comment>
     </table>
-    <table id="304" parent="3" name="companies">
+    <table id="304" parent="3" name="category"/>
+    <table id="305" parent="3" name="companies">
       <Comment>企业表</Comment>
     </table>
-    <table id="305" parent="3" name="messages">
+    <table id="306" parent="3" name="messages">
       <Comment>私信与业务消息表</Comment>
     </table>
-    <table id="306" parent="3" name="picurls"/>
-    <table id="307" parent="3" name="posts">
-      <Comment>动态贴文表</Comment>
-    </table>
+    <table id="307" parent="3" name="picurls"/>
     <table id="308" parent="3" name="society"/>
     <table id="309" parent="3" name="user">
       <Comment>用户表</Comment>
@@ -1051,400 +1049,345 @@ SELECT|sys.sys_config
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
     </foreign-key>
-    <column id="324" parent="304" name="company_id">
+    <column id="324" parent="304" name="CATEGORYID">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="325" parent="304" name="CATEGORYNAME">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="326" parent="304" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CATEGORYID
+CATEGORYNAME</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="327" parent="305" name="company_id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="325" parent="304" name="company_name">
+    <column id="328" parent="305" name="company_name">
       <Position>2</Position>
       <Comment>企业名称</Comment>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="326" parent="304" name="company_scale">
+    <column id="329" parent="305" name="company_scale">
       <Position>3</Position>
       <Comment>企业规模:1 微小型企业,2 中型企业,3 大型企业</Comment>
       <DataType>tinyint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="327" parent="304" name="industry">
+    <column id="330" parent="305" name="industry">
       <Position>4</Position>
       <Comment>所属行业</Comment>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="328" parent="304" name="description">
+    <column id="331" parent="305" name="description">
       <Position>5</Position>
       <Comment>企业描述</Comment>
       <DataType>varchar(500)|0s</DataType>
     </column>
-    <column id="329" parent="304" name="create_date">
+    <column id="332" parent="305" name="create_date">
       <Position>6</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="330" parent="304" name="update_date">
+    <column id="333" parent="305" name="update_date">
       <Position>7</Position>
       <Comment>修改时间</Comment>
       <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
-    <index id="331" parent="304" name="company_name">
-      <ColNames>company_name</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
-    <key id="332" parent="304" name="PRIMARY">
+    <key id="334" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>company_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="333" parent="304" name="company_name">
-      <ColNames>company_name</ColNames>
-      <UnderlyingIndexName>company_name</UnderlyingIndexName>
-    </key>
-    <column id="334" parent="305" name="massage_id">
+    <column id="335" parent="306" name="massage_id">
       <Position>1</Position>
       <Comment>私信与业务消息表id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="335" parent="305" name="sender_company_id">
+    <column id="336" parent="306" name="sender_company_id">
       <Position>2</Position>
       <Comment>外键,所属发送用户企业</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="336" parent="305" name="sender_id">
+    <column id="337" parent="306" name="sender_id">
       <Position>3</Position>
       <Comment>外键,所属发送用户</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="337" parent="305" name="content">
+    <column id="338" parent="306" name="content">
       <Position>4</Position>
       <Comment>消息内容</Comment>
       <DataType>varchar(500)|0s</DataType>
     </column>
-    <column id="338" parent="305" name="create_time">
+    <column id="339" parent="306" name="create_time">
       <Position>5</Position>
       <Comment>消息创建时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="339" parent="305" name="receiver_id">
+    <column id="340" parent="306" name="receiver_id">
       <Position>6</Position>
       <Comment>所属接收方用户id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="340" parent="305" name="receiver_company_id">
+    <column id="341" parent="306" name="receiver_company_id">
       <Position>7</Position>
       <Comment>所属接收方用户企业id</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <index id="341" parent="305" name="messages_companies_company_id_fk">
+    <index id="342" parent="306" name="messages_companies_company_id_fk">
       <ColNames>sender_company_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="342" parent="305" name="messages_user_user_id_fk">
+    <index id="343" parent="306" name="messages_user_user_id_fk">
       <ColNames>sender_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="343" parent="305" name="messages_user_user_id_fk_2">
+    <index id="344" parent="306" name="messages_user_user_id_fk_2">
       <ColNames>receiver_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="344" parent="305" name="messages_companies_company_id_fk_2">
+    <index id="345" parent="306" name="messages_companies_company_id_fk_2">
       <ColNames>receiver_company_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="345" parent="305" name="PRIMARY">
+    <key id="346" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>massage_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="346" parent="305" name="messages_companies_company_id_fk">
+    <foreign-key id="347" parent="306" name="messages_companies_company_id_fk">
       <ColNames>sender_company_id</ColNames>
       <RefTableName>companies</RefTableName>
       <RefColNames>company_id</RefColNames>
     </foreign-key>
-    <foreign-key id="347" parent="305" name="messages_user_user_id_fk">
+    <foreign-key id="348" parent="306" name="messages_user_user_id_fk">
       <ColNames>sender_id</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
     </foreign-key>
-    <foreign-key id="348" parent="305" name="messages_user_user_id_fk_2">
+    <foreign-key id="349" parent="306" name="messages_user_user_id_fk_2">
       <ColNames>receiver_id</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
     </foreign-key>
-    <foreign-key id="349" parent="305" name="messages_companies_company_id_fk_2">
+    <foreign-key id="350" parent="306" name="messages_companies_company_id_fk_2">
       <ColNames>receiver_company_id</ColNames>
       <RefTableName>companies</RefTableName>
       <RefColNames>company_id</RefColNames>
     </foreign-key>
-    <column id="350" parent="306" name="PICURLSID">
+    <column id="351" parent="307" name="PICURLSID">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="351" parent="306" name="URL1">
+    <column id="352" parent="307" name="URL1">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="352" parent="306" name="URL2">
+    <column id="353" parent="307" name="URL2">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="353" parent="306" name="URL3">
+    <column id="354" parent="307" name="URL3">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="354" parent="306" name="URL4">
+    <column id="355" parent="307" name="URL4">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="355" parent="306" name="PRIMARY">
+    <column id="356" parent="307" name="is_user">
+      <Position>6</Position>
+      <Comment>用户标识&#xd;
+</Comment>
+      <DataType>tinyint|0s</DataType>
+    </column>
+    <column id="357" parent="307" name="create_timne">
+      <Position>7</Position>
+      <Comment>创建时间</Comment>
+      <DataType>time|0s</DataType>
+    </column>
+    <column id="358" parent="307" name="update_time">
+      <Position>8</Position>
+      <Comment>修改时间&#xd;
+</Comment>
+      <DataType>time|0s</DataType>
+    </column>
+    <column id="359" parent="307" name="companies_id">
+      <Position>9</Position>
+      <Comment>发帖公司</Comment>
+      <DataType>tinyint|0s</DataType>
+    </column>
+    <key id="360" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>PICURLSID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="356" parent="307" name="post_id">
-      <Position>1</Position>
-      <Comment>动态贴文表id</Comment>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
-    </column>
-    <column id="357" parent="307" name="companies_id">
-      <Position>2</Position>
-      <Comment>所属用户公司id</Comment>
-      <DataType>int|0s</DataType>
-    </column>
-    <column id="358" parent="307" name="user_id">
-      <Position>3</Position>
-      <Comment>用户id</Comment>
-      <DataType>int|0s</DataType>
-    </column>
-    <column id="359" parent="307" name="title">
-      <Position>4</Position>
-      <Comment>贴文标题</Comment>
-      <DataType>varchar(50)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="360" parent="307" name="content">
-      <Position>5</Position>
-      <Comment>贴文内容</Comment>
-      <DataType>varchar(800)|0s</DataType>
-    </column>
-    <column id="361" parent="307" name="create_time">
-      <Position>6</Position>
-      <Comment>创建时间</Comment>
-      <DataType>datetime|0s</DataType>
-    </column>
-    <column id="362" parent="307" name="update_time">
-      <Position>7</Position>
-      <Comment>修改时间</Comment>
-      <DataType>datetime|0s</DataType>
-    </column>
-    <index id="363" parent="307" name="title">
-      <ColNames>title</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
-    <index id="364" parent="307" name="posts_companies_company_id_fk">
-      <ColNames>companies_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="365" parent="307" name="posts_user_user_id_fk">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="366" parent="307" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>post_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <key id="367" parent="307" name="title">
-      <ColNames>title</ColNames>
-      <UnderlyingIndexName>title</UnderlyingIndexName>
-    </key>
-    <foreign-key id="368" parent="307" name="posts_companies_company_id_fk">
-      <ColNames>companies_id</ColNames>
-      <RefTableName>companies</RefTableName>
-      <RefColNames>company_id</RefColNames>
-    </foreign-key>
-    <foreign-key id="369" parent="307" name="posts_user_user_id_fk">
-      <ColNames>user_id</ColNames>
-      <RefTableName>user</RefTableName>
-      <RefColNames>user_id</RefColNames>
-    </foreign-key>
-    <column id="370" parent="308" name="SID">
+    <column id="361" parent="308" name="SID">
       <Position>1</Position>
       <Comment>帖子ID</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="371" parent="308" name="USERID">
+    <column id="362" parent="308" name="USERID">
       <Position>2</Position>
       <Comment>用户ID</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="372" parent="308" name="TITLE">
+    <column id="363" parent="308" name="TITLE">
       <Position>3</Position>
       <Comment>标题</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="373" parent="308" name="CONTENT">
+    <column id="364" parent="308" name="CONTENT">
       <Position>4</Position>
       <Comment>内容</Comment>
       <DataType>varchar(5000)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="374" parent="308" name="PICURLSID">
+    <column id="365" parent="308" name="PICURLSID">
       <Position>5</Position>
       <DataType>bigint|0s</DataType>
     </column>
-    <column id="375" parent="308" name="CREATE_TIME">
+    <column id="366" parent="308" name="CREATE_TIME">
       <Position>6</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="376" parent="308" name="UPDATE_TIME">
+    <column id="367" parent="308" name="UPDATE_TIME">
       <Position>7</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <key id="377" parent="308" name="PRIMARY">
+    <column id="368" parent="308" name="CATEGORYID">
+      <Position>8</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="369" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>SID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="378" parent="309" name="user_id">
+    <column id="370" parent="309" name="user_id">
       <Position>1</Position>
       <Comment>ID</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="379" parent="309" name="userphone">
+    <column id="371" parent="309" name="userphone">
       <Position>2</Position>
       <Comment>登录名,只能是手机号</Comment>
       <DataType>char(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="380" parent="309" name="name">
+    <column id="372" parent="309" name="name">
       <Position>3</Position>
       <Comment>用户自定义名字</Comment>
       <DataType>varchar(30)|0s</DataType>
     </column>
-    <column id="381" parent="309" name="password">
+    <column id="373" parent="309" name="password">
       <Position>4</Position>
       <Comment>密码,默认12345678910</Comment>
       <DataType>varchar(50)|0s</DataType>
       <DefaultExpression>&apos;123456&apos;</DefaultExpression>
     </column>
-    <column id="382" parent="309" name="company_id">
+    <column id="374" parent="309" name="company_id">
       <Position>5</Position>
       <Comment>外键，关联到企业表的主键</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="383" parent="309" name="create_time">
+    <column id="375" parent="309" name="create_time">
       <Position>6</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="384" parent="309" name="update_time">
+    <column id="376" parent="309" name="update_time">
       <Position>7</Position>
       <Comment>修改时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="385" parent="309" name="user_power">
+    <column id="377" parent="309" name="user_power">
       <Position>8</Position>
       <Comment>企业用户权限:1,最高可以发布业务需求,接需求  2,可以发帖...</Comment>
       <DataType>int|0s</DataType>
       <DefaultExpression>2</DefaultExpression>
     </column>
-    <column id="386" parent="309" name="sex">
+    <column id="378" parent="309" name="sex">
       <Position>9</Position>
       <Comment>性别&#xd;
 </Comment>
       <DataType>char(1)|0s</DataType>
     </column>
-    <index id="387" parent="309" name="username">
-      <ColNames>userphone</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
-    <index id="388" parent="309" name="name">
-      <ColNames>name</ColNames>
-      <Unique>1</Unique>
-      <Type>btree</Type>
-    </index>
-    <index id="389" parent="309" name="user_companies_company_id_fk">
+    <index id="379" parent="309" name="user_companies_company_id_fk">
       <ColNames>company_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="390" parent="309" name="PRIMARY">
+    <key id="380" parent="309" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="391" parent="309" name="username">
-      <ColNames>userphone</ColNames>
-      <UnderlyingIndexName>username</UnderlyingIndexName>
-    </key>
-    <key id="392" parent="309" name="name">
-      <ColNames>name</ColNames>
-      <UnderlyingIndexName>name</UnderlyingIndexName>
-    </key>
-    <foreign-key id="393" parent="309" name="user_companies_company_id_fk">
+    <foreign-key id="381" parent="309" name="user_companies_company_id_fk">
       <ColNames>company_id</ColNames>
       <RefTableName>companies</RefTableName>
       <RefColNames>company_id</RefColNames>
     </foreign-key>
-    <trigger id="394" parent="309" name="md5_userpwd">
+    <trigger id="382" parent="309" name="md5_userpwd">
       <SourceTextLength>50</SourceTextLength>
       <Definer>root@localhost</Definer>
       <Turn>before-row</Turn>
       <Events>I</Events>
     </trigger>
-    <column id="395" parent="310" name="id">
+    <column id="383" parent="310" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="396" parent="310" name="user_id">
+    <column id="384" parent="310" name="user_id">
       <Position>2</Position>
       <Comment>外键,用户名</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="397" parent="310" name="token_value">
+    <column id="385" parent="310" name="token_value">
       <Position>3</Position>
       <Comment>生成的令牌值</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="398" parent="310" name="expiration_time">
+    <column id="386" parent="310" name="expiration_time">
       <Position>4</Position>
       <Comment>令牌的过期时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <index id="399" parent="310" name="user_tokens_user_user_id_fk">
+    <index id="387" parent="310" name="user_tokens_user_user_id_fk">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="400" parent="310" name="PRIMARY">
+    <key id="388" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="401" parent="310" name="user_tokens_user_user_id_fk">
+    <foreign-key id="389" parent="310" name="user_tokens_user_user_id_fk">
       <ColNames>user_id</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>

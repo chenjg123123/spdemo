@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author abc
- * @since 2023-12-05
+ * @since 2023-12-11
  */
 @Service
 public class PicurlsServiceImpl extends ServiceImpl<PicurlsMapper, Picurls> implements IPicurlsService {

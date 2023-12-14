@@ -2,7 +2,6 @@
   <div class="Header">社区</div>
   <div class="showMain">
     <ShowPicture v-for="index in 10"></ShowPicture>
-
   </div>
 </template>
 

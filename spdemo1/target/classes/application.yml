@@ -28,4 +28,10 @@ aliyun:
     accessKeyId: LTAI5tFuAcUcZFsbWnpLjcWA
     accessKeySecret: nWhzxHgc2Yc8kPvK6JONbJioWmOuCn
     bucketName: lnu-liang-web-tlias
+pagehelper:
+  auto-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  page-size-zero: true
+  params: count=countSql
 

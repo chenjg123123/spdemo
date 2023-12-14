@@ -1,6 +1,7 @@
 package spring.review.demo.sys.entity;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 
 /**
  * <p>
@@ -8,7 +9,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author abc
- * @since 2023-12-05
+ * @since 2023-12-11
  */
 public class Picurls implements Serializable {
 
@@ -23,6 +24,26 @@ public class Picurls implements Serializable {
     private String url3;
 
     private String url4;
+
+    /**
+     * 用户标识	
+     */
+    private Integer isUser;
+
+    /**
+     * 创建时间
+     */
+    private LocalTime createTimne;
+
+    /**
+     * 修改时间	
+     */
+    private LocalTime updateTime;
+
+    /**
+     * 发帖公司
+     */
+    private Integer companiesId;
 
     public Integer getPicurlsid() {
         return picurlsid;
@@ -59,6 +80,34 @@ public class Picurls implements Serializable {
     public void setUrl4(String url4) {
         this.url4 = url4;
     }
+    public Integer getIsUser() {
+        return isUser;
+    }
+
+    public void setIsUser(Integer isUser) {
+        this.isUser = isUser;
+    }
+    public LocalTime getCreateTimne() {
+        return createTimne;
+    }
+
+    public void setCreateTimne(LocalTime createTimne) {
+        this.createTimne = createTimne;
+    }
+    public LocalTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalTime updateTime) {
+        this.updateTime = updateTime;
+    }
+    public Integer getCompaniesId() {
+        return companiesId;
+    }
+
+    public void setCompaniesId(Integer companiesId) {
+        this.companiesId = companiesId;
+    }
 
     @Override
     public String toString() {
@@ -68,6 +117,10 @@ public class Picurls implements Serializable {
             ", url2=" + url2 +
             ", url3=" + url3 +
             ", url4=" + url4 +
+            ", isUser=" + isUser +
+            ", createTimne=" + createTimne +
+            ", updateTime=" + updateTime +
+            ", companiesId=" + companiesId +
         "}";
     }
 }

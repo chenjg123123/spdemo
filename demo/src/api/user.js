@@ -7,11 +7,3 @@ export const userRegisterService = (data) => {
 export const userLoginService = (data) => {
   return request.post('/user/login', data)
 }
-//获取搜索分类
-export const userInterService = (id) => {
-  return request.get('/companies/inter', {
-    params: {
-      id
-    }
-  })
-}

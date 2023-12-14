@@ -14,7 +14,7 @@ public class CodeGenerator {
         String password = "chenjg";
         String finalProjectPath = "D:\\Project\\JAVA\\spdemo1";
         String moduleName = "sys";
-        String tables = "companies,user,business_demands,messages,society,user_tokens,picurls";
+        String tables = "companies,user,business_demands,messages,society,user_tokens,picurls,category,messagelist,inform";
 
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {
@@ -28,7 +28,9 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, finalProjectPath + "/src/main/resources/mapper"));
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude(tables);
+                    builder.addInclude(tables)
+                            .entityBuilder()
+                            .enableLombok(); //开启 Lombok
 //                            .addTablePrefix("t_");
 //                            .enableTableFieldAnnotation(true)
 //                            .entityBuilderModel(true)

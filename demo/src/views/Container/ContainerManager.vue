@@ -4,7 +4,7 @@ import { Tabbar, TabbarItem, Icon } from 'vant'
 </script>
 
 <template>
-  <keep-alive>  
+  <keep-alive>
     <RouterView />
   </keep-alive>
 
@@ -24,8 +24,6 @@ import { Tabbar, TabbarItem, Icon } from 'vant'
       </TabbarItem>
     </Tabbar>
   </div>
-
-
 </template>
 
 <style scoped lang="scss">

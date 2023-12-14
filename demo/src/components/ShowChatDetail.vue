@@ -1,29 +1,123 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted, watch } from 'vue'
+import { useUserStore } from '@/stores'
+const scroll = ref(null)
+const sendMessageData = ref({
+  messageid: '',
+  senderid: '',
+  content: ''
+})
+const vLoading = ref(false)
+const userStore = useUserStore()
+const websocket = ref(null)
+const onOpen = () => {
+  // WebSocket 连接建立成功的处理
+  console.log(userStore.userid)
+  console.log('WebSocket 连接已建立')
+}
+const onClose = () => {
+  // WebSocket 连接关闭的处理
+  console.log('WebSocket 连接已关闭')
+}
+const onMessage = (event) => {
+  // 处理收到的消息
+  console.log('收到消息：', event ? event.data : '无消息')
+  if (event) {
+    userStore.chat.push(JSON.parse(event.data))
+  }
+  // 在这里处理接收到的消息并在页面上渲染
+}
+const onError = (event) => {
+  // WebSocket 错误的处理
+  console.error('WebSocket 错误', event ? event : '无消息')
+}
+const sendMessage = () => {
+  // 发送消息
+  console.log(sendMessageData.value.messageid)
+  sendMessageData.value.messageid = userStore.messageId
+  sendMessageData.value.senderid = userStore.userid
+  websocket.value.send(JSON.stringify(sendMessageData.value))
+  sendMessageData.value.content = ''
+}
+const scrollToBottom = () => {
+  const height = ref()
+  if (userStore.chat) {
+    height.value = 94.2 * userStore.chat.length
+  }
+  if (scroll.value) {
+    console.log(height)
+    scroll.value.setScrollTop(height)
+  }
+}
+
+onMounted(() => {
+  // 这里建立 WebSocket 连接
+  websocket.value = new WebSocket(
+    `ws://localhost:8080/websocket/${userStore.userid}`
+  )
+  // 监听 WebSocket 的事件
+  websocket.value.onopen = (event) => onOpen(event)
+  websocket.value.onclose = (event) => onClose(event)
+  websocket.value.onmessage = (event) => onMessage(event)
+  websocket.value.onerror = (event) => onError(event)
+  scrollToBottom()
+})
+watch(
+  () => userStore.chat,
+  () => {
+    vLoading.value = true
+    setTimeout(() => {
+      scrollToBottom()
+    }, 50)
+    vLoading.value = false
+  },
+  { deep: true }
+)
+</script>
 <template>
-  <el-drawer title="userName" size="60%" style="margin-bottom: 5px">
+  <el-drawer
+    title="userName"
+    size="60%"
+    style="margin-bottom: 5px"
+    v-loading="vLoading"
+  >
     <div class="chat">
-      <el-scrollbar>
+      <el-scrollbar ref="scroll">
         <div
-          :class="{ chatDetail: true, user: false, oth: true }"
-          v-for="index in 60"
+          :class="{
+            chatDetail: true,
+            user: item.senderid === userStore.userid,
+            oth: item.senderid !== userStore.userid
+          }"
+          v-for="item in userStore.chat"
+          :key="item.createTime"
         >
           <img src="@/assets/backgroud/b1.jpg" />
-          <span>123</span>
+          <span>{{ item.content }}</span>
         </div>
       </el-scrollbar>
     </div>
 
     <div class="box">
-      <el-input :autosize="{ minRows: 4, maxRows: 6 }" type="textarea" />
+      <el-input
+        v-model="sendMessageData.content"
+        :autosize="{ minRows: 4, maxRows: 6 }"
+        type="textarea"
+      />
+      <el-button class="button" type="primary" @click="sendMessage"
+        >发送</el-button
+      >
     </div>
   </el-drawer>
 </template>
 
 <style scoped lang="scss">
 .box {
+  display: flex;
   position: fixed;
-  width: 60%;
+  width: 57%;
   bottom: 10px;
+
   .el-textarea {
     width: 92%;
   }
@@ -37,7 +131,6 @@
   .chatDetail {
     height: 60px;
     margin: 3%;
-    background: linear-gradient(to right, #ffffff, #f5f5f5);
   }
 
   img {
@@ -52,11 +145,13 @@
 }
 .user {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  background-color: rgb(239, 252, 239);
 }
 
 .oth {
   display: flex;
   justify-content: flex-start;
+  background: linear-gradient(to right, #ffffff, #f5f5f5);
 }
 </style>

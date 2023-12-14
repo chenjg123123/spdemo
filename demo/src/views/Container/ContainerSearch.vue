@@ -1,13 +1,52 @@
 <script setup>
 import { Plus } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-import {userInterService} from '@/api/user.js'
+import { onMounted, ref } from 'vue'
+import {
+  societyList,
+  getCategoryList,
+  getSocietyByCategoryId
+} from '@/api/society.js'
+import { useRouter } from 'vue-router'
 const searchKey = ref()
+const categoryList = ref()
+const societyListData = ref([])
+const picUrls = ref()
+const loading = ref(false)
+const router = useRouter()
+const selected = ref()
 //method
-const getinter = async () => {
- const res =  await userInterService('123')
- console.log(res);
+const getinter = async (id) => {
+  router.push(`/container/society/${id}`)
 }
+const getList = async () => {
+  loading.value = true
+  const res = await societyList()
+  societyListData.value = res.data.data.list
+  picUrls.value = res.data.data.picurls
+  loading.value = false
+}
+const getCategroy = async () => {
+  const res = await getCategoryList()
+  categoryList.value = res.data.data.categoryList
+  console.log(res)
+}
+const handleCategory = async (categoryid) => {
+  loading.value = true
+  selected.value = categoryid
+  const res = await getSocietyByCategoryId(categoryid)
+  societyListData.value = res.data.data.list
+  picUrls.value = res.data.data.picurls
+  loading.value = false
+}
+const search = () => {
+  router.push(`/container/searchkey/${searchKey.value}`)
+  searchKey.value = ''
+}
+//onMounted
+onMounted(() => {
+  getList()
+  getCategroy()
+})
 </script>
 <template>
   <div class="Header">
@@ -20,15 +59,48 @@ const getinter = async () => {
       size="large"
       clearable
     ></el-input>
+    <el-button
+      type="primary"
+      style="height: 40px; margin-top: 20px"
+      @click="search()"
+      >搜索</el-button
+    >
     <el-icon size="30px"><Plus /></el-icon>
   </div>
-  <div class="navtabbar">
-    <el-scrollbar>
-      <span v-for="index in 10" @click="handlerCategory">genshin</span>
-    </el-scrollbar>
-  </div>
-  <div class="main">
-    <show-society v-for="index in 10" @click="getinter"></show-society>
+  <!-- <div class="navtabbar"> -->
+  <el-scrollbar>
+    <div class="scrollbar-flex-content">
+      <p
+        v-for="item in categoryList"
+        :key="item.categoryid"
+        :class="{
+          'scrollbar-demo-item': true,
+          selected: selected === item.categoryid
+        }"
+        @click="handleCategory(item.categoryid)"
+      >
+        {{ item.categoryname }}
+      </p>
+    </div>
+  </el-scrollbar>
+  <!-- </div> -->
+  <div class="main" v-loading="loading">
+    <show-society
+      v-for="(item, index) in societyListData"
+      :key="item.sid"
+      @click="getinter(item.sid)"
+      :src="picUrls[index] ? picUrls[index].url1 : null"
+      :src1="
+        picUrls[index]
+          ? picUrls[index].url2
+            ? picUrls[index].url2
+            : picUrls[index].url1
+          : null
+      "
+    >
+      <template #title>{{ item.title }}</template>
+      <template #username>{{ item.username }}</template>
+    </show-society>
   </div>
 </template>
 
@@ -58,14 +130,24 @@ const getinter = async () => {
     background-color: orange;
   }
 }
-.navtabbar {
-  margin-top: 20px;
-  font-size: 30px;
+
+.scrollbar-flex-content {
   display: flex;
-  border-bottom: 1px solid black;
-  span {
-    margin: 0 30px;
-  }
+}
+.scrollbar-demo-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 50px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 4px;
+  // color: var(--el-color-danger);
+}
+.selected {
+  background: var(--el-color-danger-light-9);
 }
 .main {
   display: flex;

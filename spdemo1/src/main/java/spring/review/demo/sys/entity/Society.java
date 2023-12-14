@@ -46,6 +46,16 @@ public class Society implements Serializable {
 
     private LocalDateTime createTime;
 
+    private Integer categoryid;
+
+    public Integer getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(Integer categoryid) {
+        this.categoryid = categoryid;
+    }
+
     public String getUsername() {
         return Username;
     }

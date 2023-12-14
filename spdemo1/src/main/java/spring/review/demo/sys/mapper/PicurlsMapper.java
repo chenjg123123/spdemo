@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author abc
- * @since 2023-12-05
+ * @since 2023-12-11
  */
 public interface PicurlsMapper extends BaseMapper<Picurls> {
 

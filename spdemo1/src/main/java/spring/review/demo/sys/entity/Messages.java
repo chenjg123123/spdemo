@@ -43,6 +43,19 @@ public class Messages implements Serializable {
      */
     private LocalDateTime createTime;
 
+    private LocalDateTime updateTime;
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+    public String senderName;
+
+    public String receiverName;
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
     /**
      * 所属接收方用户id
      */

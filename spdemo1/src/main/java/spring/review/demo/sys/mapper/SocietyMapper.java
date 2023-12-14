@@ -1,7 +1,7 @@
 package spring.review.demo.sys.mapper;
 
-import spring.review.demo.sys.entity.Society;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import spring.review.demo.sys.entity.Society;
 
 /**
  * <p>

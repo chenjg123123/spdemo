@@ -92,7 +92,7 @@ public class UserController {
             String jwt = JwtUtils.generateJwt(claims);
             Token token = new Token(jwt);
             //登录成功,返回JWT令牌
-            return Result.success("token",token,"登陆成功");
+            return Result.success("token",token,"登陆成功").add("username",one.getId());
         }
         return Result.error("手机号或密码错误");
     }
