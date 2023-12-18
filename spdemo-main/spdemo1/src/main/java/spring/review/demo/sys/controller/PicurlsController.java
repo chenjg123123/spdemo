@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
  * </p>
  *
  * @author abc
- * @since 2023-12-05
+ * @since 2023-12-11
  */
 @Controller
 @RequestMapping("/sys/picurls")

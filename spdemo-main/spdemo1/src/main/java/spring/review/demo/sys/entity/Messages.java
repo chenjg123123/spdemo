@@ -43,6 +43,19 @@ public class Messages implements Serializable {
      */
     private LocalDateTime createTime;
 
+    private LocalDateTime updateTime;
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+    public String senderName;
+
+    public String receiverName;
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
     /**
      * 所属接收方用户id
      */
@@ -52,6 +65,22 @@ public class Messages implements Serializable {
      * 所属接收方用户企业id
      */
     private Integer receiverCompanyId;
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
 
     public Integer getMassageId() {
         return massageId;

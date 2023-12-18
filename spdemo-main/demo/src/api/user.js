@@ -7,11 +7,27 @@ export const userRegisterService = (data) => {
 export const userLoginService = (data) => {
   return request.post('/user/login', data)
 }
-//获取搜索分类
-export const userInterService = (id) => {
-  return request.get('/companies/inter', {
+//修改头像
+export const userSetHeader = (File) => {
+  return request.post('/user/upload', File)
+}
+//获取收藏业务
+export const getCollectByid = (userId) => {
+  return request.get('/usercollect/getByUserId', {
     params: {
-      id
+      userId
     }
   })
+}
+//获取用户信息
+export const getUserInfo = (userId) => {
+  return request.get('/user/userByid', {
+    params: {
+      userId
+    }
+  })
+}
+//
+export const updataById = (user) => {
+  return request.post('/user/update', user)
 }

@@ -1,6 +1,5 @@
 package spring.review.demo.sys.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
 import spring.review.demo.sys.entity.Picurls;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -10,9 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author abc
- * @since 2023-12-08
+ * @since 2023-12-11
  */
-@Mapper
 public interface PicurlsMapper extends BaseMapper<Picurls> {
 
 }

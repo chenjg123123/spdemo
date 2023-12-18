@@ -1,9 +1,11 @@
 <script setup></script>
 <template>
-  <el-drawer title="Postman" size="60%" style="margin-bottom: 5px">
-    <div class="Header">title</div>
-    <el-scrollbar> <div class="contain">content</div> </el-scrollbar>
-    <div class="date">2023-11-23</div>
+  <el-drawer title="inform" size="60%" style="margin-bottom: 5px">
+    <div class="Header"><slot name="title">123</slot></div>
+    <el-scrollbar>
+      <div class="contain"><slot name="content">123</slot></div>
+    </el-scrollbar>
+    <div class="date"><slot name="time">123</slot></div>
   </el-drawer>
 </template>
 
@@ -16,7 +18,8 @@
 }
 .contain {
   margin: 15px 10px;
-  width: 80%;
+  width: 98%;
+  word-wrap: break-word;
 }
 .date {
   width: 100%;

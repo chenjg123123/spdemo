@@ -5,13 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import spring.review.demo.sys.common.Result;
+import spring.review.demo.sys.entity.Companies;
+import spring.review.demo.sys.entity.Picurls;
 import spring.review.demo.sys.entity.Society;
-import spring.review.demo.sys.entity.SocietyDTO;
 import spring.review.demo.sys.entity.User;
-import spring.review.demo.sys.mapper.SocietyMapper;
+import spring.review.demo.sys.service.ICompaniesService;
+import spring.review.demo.sys.service.IPicurlsService;
 import spring.review.demo.sys.service.ISocietyService;
 import spring.review.demo.sys.service.IUserService;
 
@@ -36,6 +38,10 @@ public class CompaniesController {
     private ISocietyService societyService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IPicurlsService picurlsService;
+    @Autowired
+    private ICompaniesService companiesService;
     /**
      * @author abc
      * @param id
@@ -48,7 +54,10 @@ public class CompaniesController {
         LambdaQueryWrapper<Society> societyLambdaQueryWrapper = new LambdaQueryWrapper<>();
         societyLambdaQueryWrapper.eq(Society::getSid,id);
         Society one = societyService.getOne(societyLambdaQueryWrapper);
-        return Result.success("id",one);
+        LambdaQueryWrapper<Picurls>  picurlsLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        picurlsLambdaQueryWrapper.eq(Picurls::getPicurlsid,one.getPicurlsid());
+        Picurls one1 = picurlsService.getOne(picurlsLambdaQueryWrapper);
+        return Result.success("id",one).add("picurls",one1);
     }
 
     /**
@@ -89,12 +98,23 @@ public class CompaniesController {
             userLambdaQueryWrapper.eq(User::getId, userId);
             return userService.getOne(userLambdaQueryWrapper);
         }).collect(Collectors.toList());
+        List<Picurls> picurlsList = list.stream().map(Society::getPicurlsid).collect(Collectors.toList()).stream().map(picUrls->{
+            LambdaQueryWrapper<Picurls> picurlsLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            picurlsLambdaQueryWrapper.eq(Picurls::getPicurlsid,picUrls);
+            return  picurlsService.getOne(picurlsLambdaQueryWrapper);
+        }).collect(Collectors.toList());
         for(int i = 0;i<list.size();i++){
             list.get(i).setUsername(userList.get(i).getUname());
         }
-        return Result.success("list",list);
+
+        return Result.success("list",list).add("picurls",picurlsList);
     }
-
-
+    @GetMapping("/getId")
+    public Result getById(@RequestParam Integer companyId){
+        LambdaQueryWrapper<Companies> companiesLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        companiesLambdaQueryWrapper.eq(Companies::getCompanyId,companyId);
+        Companies one = companiesService.getOne(companiesLambdaQueryWrapper);
+        return Result.success("Info",one);
+    }
 
 }

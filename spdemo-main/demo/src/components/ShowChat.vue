@@ -1,7 +1,9 @@
 <template>
   <div class="item">
     <div class="userPic"><img src="@/assets/backgroud/b1.jpg" /></div>
-    <div class="userName"><span>用户名:UserName</span><p1>op</p1></div>
+    <div class="userName">
+      <span><slot name="username"></slot></span>
+    </div>
   </div>
 </template>
 <script setup></script>

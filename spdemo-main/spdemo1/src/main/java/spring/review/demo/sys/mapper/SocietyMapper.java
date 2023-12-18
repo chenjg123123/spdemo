@@ -1,9 +1,7 @@
 package spring.review.demo.sys.mapper;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Mapper;
-import spring.review.demo.sys.entity.Society;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import spring.review.demo.sys.entity.Society;
 
 /**
  * <p>
@@ -13,7 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author abc
  * @since 2023-12-05
  */
-@Mapper
 public interface SocietyMapper extends BaseMapper<Society> {
 
 }

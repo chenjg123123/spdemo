@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
+    "@mojs/core": "^1.7.1",
     "@vue/compiler-sfc": "^3.3.7",
     "@vueup/vue-quill": "^1.2.0",
     "axios": "^1.5.1",
+    "babel-plugin-import": "^1.13.8",
     "element-plus": "^2.4.1",
     "pinia": "^2.1.7",
     "vant": "^4.8.0",

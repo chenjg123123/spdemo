@@ -1,7 +1,7 @@
 package spring.review.demo.sys.service;
 
-import spring.review.demo.sys.entity.Society;
 import com.baomidou.mybatisplus.extension.service.IService;
+import spring.review.demo.sys.entity.Society;
 
 /**
  * <p>

@@ -1,14 +1,22 @@
-<script setup></script>
+<script setup>
+defineProps({
+  picUrls: []
+})
+</script>
 <template>
   <div class="main">
-    <img class="imgBig" src="@\assets\backgroud\b1.jpg" />
+    <img class="imgBig" :src="picUrls.url1 ? picUrls.url1 : null" />
     <div class="tradition">
-      <div class="Text"><slot>123</slot></div>
+      <div class="Text"><slot name="name"></slot></div>
+      <div class="Text"><slot name="sal"></slot></div>
 
       <div class="smallPic">
-        <img class="small" src="@\assets\backgroud\b1.jpg" />
-        <img class="small" src="@\assets\backgroud\b1.jpg" />
-        <img class="small" src="@\assets\backgroud\b1.jpg" />
+        <img class="small" :src="picUrls.url2 ? picUrls.url2 : null" />
+        <img class="small" :src="picUrls.url3 ? picUrls.url3 : null" />
+        <img class="small" :src="picUrls.url4 ? picUrls.url4 : null" />
+        <!-- <img class="small" src="@/assets/backgroud/b1.jpg" />
+        <img class="small" src="@/assets/backgroud/b1.jpg" />
+        <img class="small" src="@/assets/backgroud/b1.jpg" /> -->
       </div>
     </div>
   </div>
@@ -38,7 +46,12 @@
       margin: 0% 3%;
       padding: 0;
       width: 100%;
-      height: 50%;
+      height: 25%;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
+      font-weight: 500;
+      color: green;
+      font-size: 30px;
     }
     .smallPic {
       position: relative;

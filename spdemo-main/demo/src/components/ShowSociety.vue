@@ -1,11 +1,20 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+defineProps({
+  src: [String],
+  src1: [String]
+})
+const refSrc = ref(
+  'https://lnu-liang-web-tlias.oss-cn-guangzhou.aliyuncs.com/c6a798dc-6811-4ad2-b3f1-555f6048fc29.jpg'
+)
+</script>
 <template>
   <div class="show">
-    <img src="@/assets/backgroud/b1.jpg" />
-    <div class="span">1231231231</div>
+    <img :src="src != null ? src : refSrc" />
+    <div class="span"><slot name="title"></slot></div>
     <div class="user">
-      <img src="@/assets/backgroud/b1.jpg" />
-      <span>userName</span>
+      <img :src="src1 != null ? src1 : refSrc" />
+      <span><slot name="username"></slot></span>
     </div>
   </div>
 </template>
@@ -25,6 +34,7 @@
   .span {
     margin: 10px 10px;
     height: 50px;
+    overflow: hidden;
   }
   .user {
     width: 300px;
@@ -39,6 +49,7 @@
     }
     span {
       margin: 10px 10px;
+      overflow: hidden;
     }
   }
 }

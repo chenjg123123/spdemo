@@ -22,8 +22,12 @@ const router = createRouter({
               component: () => import('@/views/Container/ContainerSearch.vue')
             },
             {
-              path: '/container/society',
+              path: '/container/society/',
               component: () => import('@/views/Container/ContainerSociety.vue')
+            },
+            {
+              path: '/container/society/:id',
+              component: () => import('@/views/Container/ShowSocietyDetail.vue')
             },
             {
               path: '/container/self',
@@ -32,6 +36,34 @@ const router = createRouter({
             {
               path: '/container/chat',
               component: () => import('@/views/Container/ContainerChat.vue')
+            },
+            {
+              path: '/container/searchkey/:key',
+              component: () =>
+                import('@/views/Container/ContainerSearchResult.vue')
+            },
+            {
+              path: '/container/self-setting',
+              component: () => import('@/views/Container/SelfSetting.vue')
+            },
+            {
+              path: '/container/CompanyIntro/:id',
+              component: () => import('@/views/Container/CompanyIntro.vue')
+            },
+            {
+              path: '/container/CollectionBusiness',
+              component: () =>
+                import('@/views/Container/CollectionBusiness.vue')
+            },
+            {
+              path: '/container/CooperativeCompany',
+              component: () =>
+                import('@/views/Container/CooperativeCompany.vue')
+            },
+            {
+              path: '/container/societyCommunity/:id',
+              component: () =>
+                import('@/views/Container/ShowCommunityDetail.vue')
             }
           ]
         }

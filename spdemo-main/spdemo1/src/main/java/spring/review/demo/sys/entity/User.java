@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author abc
@@ -73,10 +73,10 @@ public class User implements Serializable {
     /**
      * 更新时间
      */
+    private String  avatar;
+    private String  profile;
+
     private LocalDateTime updateTime;
 
-    private String avatar;
-
-    private String personalProfile;
 
 }

@@ -11,10 +11,10 @@ public class CodeGenerator {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/link?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
         String username = "root";
-        String password = "123456";
-        String finalProjectPath = "E:\\原来的一些软件什么的\\桌面\\cjg\\spdemo-main\\spdemo1";
+        String password = "chenjg";
+        String finalProjectPath = "D:\\Project\\JAVA\\spdemo1";
         String moduleName = "sys";
-        String tables = "companies,user,business_demands,messages,society,user_tokens,picurls,community";
+        String tables = "companies,user,business_demands,messages,society,user_tokens,picurls,category,messagelist,inform,community,userCollect";
 
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {
@@ -28,7 +28,9 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, finalProjectPath + "/src/main/resources/mapper"));
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude(tables);
+                    builder.addInclude(tables)
+                            .entityBuilder()
+                            .enableLombok(); //开启 Lombok
 //                            .addTablePrefix("t_");
 //                            .enableTableFieldAnnotation(true)
 //                            .entityBuilderModel(true)

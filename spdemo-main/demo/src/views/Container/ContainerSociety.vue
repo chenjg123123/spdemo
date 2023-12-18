@@ -1,8 +1,35 @@
+<script setup>
+import { getAll } from '@/api/community.js'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+const communityData = ref()
+const picUrls = ref([])
+const router = useRouter()
+const getCommunityList = async () => {
+  const res = await getAll()
+  communityData.value = res.data.data.communities
+  picUrls.value = res.data.data.picurls
+  console.log(picUrls.value)
+}
+const goDetail = (id) => {
+  router.push(`/Container/societyCommunity/${id}`)
+}
+onMounted(() => {
+  getCommunityList()
+})
+</script>
 <template>
   <div class="Header">社区</div>
   <div class="showMain">
-    <ShowPicture v-for="index in 10"></ShowPicture>
-
+    <ShowPicture
+      v-for="(item, index) in communityData"
+      :key="item.communityId"
+      :picUrls="picUrls[index]"
+      @click="goDetail(item.communityId)"
+    >
+      <template #name>{{ item.workName }}</template>
+      <template #sal>{{ item.workRemuneration + '起' }}</template>
+    </ShowPicture>
   </div>
 </template>
 

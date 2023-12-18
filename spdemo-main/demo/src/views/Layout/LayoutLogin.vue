@@ -55,7 +55,7 @@ const onRegister = async () => {
   if (isRegister.value) {
     //行动
     await form.value.validate()
-    const res = await userRegisterService(formModel.value)
+    await userRegisterService(formModel.value)
     isRegister.value = !isRegister.value
   } else {
     isRegister.value = !isRegister.value
@@ -68,7 +68,8 @@ const onLogin = async () => {
     // 行动
     await form.value.validate()
     const res = await userLoginService(formModel.value)
-    userStore.setToken(res.data.data.tokentest)
+    userStore.setToken(res.data.data.token.tokentest)
+    userStore.userid = res.data.data.username
     router.push('/')
   }
 }

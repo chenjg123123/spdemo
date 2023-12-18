@@ -1,23 +1,17 @@
 package spring.review.demo.sys.entity;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 import java.time.LocalTime;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author abc
- * @since 2023-12-08
+ * @since 2023-12-11
  */
-@Component
 public class Picurls implements Serializable {
-
 
     private static final long serialVersionUID = 1L;
 
@@ -32,8 +26,7 @@ public class Picurls implements Serializable {
     private String url4;
 
     /**
-     * 用户标识
-
+     * 用户标识	
      */
     private Integer isUser;
 
@@ -43,8 +36,7 @@ public class Picurls implements Serializable {
     private LocalTime createTimne;
 
     /**
-     * 修改时间
-
+     * 修改时间	
      */
     private LocalTime updateTime;
 

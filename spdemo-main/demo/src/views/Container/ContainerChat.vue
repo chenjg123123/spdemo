@@ -1,32 +1,92 @@
 <script setup>
-import { ref } from 'vue'
-
+import { onMounted, ref } from 'vue'
+import { getChatList, getInformList, getInformByID } from '@/api/chat.js'
+import { getMessageListById } from '@/api/chat.js'
+import { useUserStore } from '@/stores'
 const isChat = ref(true)
 const showDetail = ref(false)
+const showDetailData = ref()
 const ShowMessageF = ref(false)
+const chatList = ref()
+const userStore = useUserStore()
+const informList = ref()
+// const massageId = ref()
 //methods
-const handlerChat = (bool) => {
-  isChat.value = bool
+const handlerChat = async () => {
+  isChat.value = true
+  const res = await getChatList(userStore.userid)
+  chatList.value = res.data.data.list
 }
+const handleMessage = async () => {
+  isChat.value = false
+  const res = await getInformList(userStore.userid)
+  informList.value = res.data.data.list
+}
+const handlershowDetail = async (id) => {
+  showDetail.value = true
+  userStore.messageId = id
+  const res = await getMessageListById(id)
+  userStore.chat = res.data.data.messagelists
+}
+
+const handleshowMessageF = async (informid) => {
+  ShowMessageF.value = true
+  const res = await getInformByID(informid)
+  showDetailData.value = res.data.data.inform
+}
+const init = async () => {
+  const res = await getChatList(userStore.userid)
+  chatList.value = res.data.data.list
+}
+//onMounted
+onMounted(() => {
+  init()
+})
 </script>
 <template>
   <div class="Header">
-    <div :class="{ message: true, active: isChat }" @click="handlerChat(true)">
+    <div :class="{ message: true, active: isChat }" @click="handlerChat()">
       聊天
     </div>
-    <div :class="{ chat: true, active: !isChat }" @click="handlerChat(false)">
+    <div :class="{ chat: true, active: !isChat }" @click="handleMessage()">
       通知
     </div>
   </div>
 
-  <div class="Chat" v-if="isChat">
-    <ShowChat v-for="index in 5" @click="showDetail = true"></ShowChat>
+  <div class="Chat" v-show="isChat">
+    <ShowChat
+      v-for="item in chatList"
+      :key="item.massageId"
+      @click="handlershowDetail(item.massageId)"
+    >
+      <template #username>{{
+        item.senderId !== userStore.userid ? item.senderName : item.receiverName
+      }}</template>
+    </ShowChat>
+    <ShowChatDetail v-model="showDetail"></ShowChatDetail>
   </div>
-  <div class="Chat" v-if="!isChat">
-    <ShowMessage v-for="index in 8" @click="ShowMessageF = true"></ShowMessage>
+  <div class="Chat" v-show="!isChat">
+    <ShowMessage
+      v-for="item in informList"
+      :key="item.senderName"
+      @click="handleshowMessageF(item.informid)"
+      :date="item.createTime"
+      :title="item.title"
+      :content="item.content"
+    ></ShowMessage>
+    <ShowMessageDetail v-model="ShowMessageF">
+      <template #title>{{
+        showDetailData ? showDetailData.title : 'test'
+      }}</template>
+      <template #content>{{
+        showDetailData ? showDetailData.content : 'test'
+      }}</template>
+      <template #time>{{
+        showDetailData ? showDetailData.createTime.replace('T', '  ') : 'test1'
+      }}</template>
+    </ShowMessageDetail>
   </div>
-  <ShowChatDetail v-model="showDetail"></ShowChatDetail>
-  <ShowMessageDetail v-model="ShowMessageF"></ShowMessageDetail>
+
   <div class="Message"></div>
 </template>
 <style scoped lang="scss">

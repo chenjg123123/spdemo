@@ -6,20 +6,21 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import spring.review.demo.sys.common.Result;
 import spring.review.demo.sys.common.Token;
 import spring.review.demo.sys.entity.Companies;
 import spring.review.demo.sys.entity.User;
+import spring.review.demo.sys.service.ICompaniesService;
 import spring.review.demo.sys.service.IUserService;
-import spring.review.demo.sys.service.impl.UserServiceImpl;
 import spring.review.demo.sys.utils.JwtUtils;
 import spring.review.demo.sys.utils.RedisUtils;
 
+import java.io.File;
 import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +38,8 @@ public class UserController {
     @Autowired
     private IUserService userService;
     @Autowired
-    private UserServiceImpl userServiceimpl;
+    private ICompaniesService companiesService;
+
     /**
      * author:abc
      * 登录注册接口
@@ -96,29 +98,29 @@ public class UserController {
             String jwt = JwtUtils.generateJwt(claims);
             Token token = new Token(jwt);
             //登录成功,返回JWT令牌
-            return Result.success("token",token,"登陆成功");
+            return Result.success("token",token,"登陆成功").add("username",one.getId());
         }
         return Result.error("手机号或密码错误");
     }
-
-    //根据手机号码查询个人全部信息
-    @GetMapping("/personal")
-    public Result<List<User>> getUserByUphone(@RequestBody Map<String,String> requestBody){
-        String uphone=requestBody.get("uphone");
-        List<User> userList=userServiceimpl.getUserByPhone(uphone);
-        return Result.success("userList", userList, "查询成功");
+    @GetMapping("/userByid")
+    public Result getUserById (@RequestParam Integer userId){
+        LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        userLambdaQueryWrapper.eq(User::getId,userId);
+        User one = userService.getOne(userLambdaQueryWrapper);
+        LambdaQueryWrapper<Companies> companiesLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        companiesLambdaQueryWrapper.eq(Companies::getCompanyId,one.getCompanyId());
+        Companies one1 = companiesService.getOne(companiesLambdaQueryWrapper);
+        return Result.success("Info",one).add("company",one1);
     }
-
-    //根据userId的外键companyId,查询公司信息
-    @GetMapping("/companies")
-    public Result<List<Companies>> getCompaniesByUserId(@RequestBody Map<String, Integer> requestBody) {
-        Integer userId = requestBody.get("userId");
-        List<Companies> companiesList = userServiceimpl.getCompaniesByUserId(userId);
-
-        if (companiesList != null && !companiesList.isEmpty()) {
-            return Result.success("companiesList", companiesList, "查询成功");
-        } else {
-            return Result.error("未找到对应企业");
-        }
+    @PostMapping("/update")
+    public Result update(@RequestBody User user){
+        LambdaQueryWrapper<User>userLambdaQueryWrapper= new LambdaQueryWrapper<>();
+        userLambdaQueryWrapper.eq(User::getId,user.getId());
+        userService.updateById(user);
+        return Result.success("123",123);
+    }
+    @PostMapping("/upload")
+    public Result upload(@RequestParam("file") MultipartFile file){
+        return  Result.success("success",null);
     }
 }
