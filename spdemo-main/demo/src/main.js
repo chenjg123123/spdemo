@@ -13,6 +13,7 @@ const app = createApp(App)
 for (let iconName in ELIcons) {
   app.component(iconName, ELIcons[iconName])
 }
+
 app.use(Pinia)
 app.use(router)
 app.use(ElementPlus)

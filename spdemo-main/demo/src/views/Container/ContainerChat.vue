@@ -63,7 +63,7 @@ onMounted(() => {
         item.senderId !== userStore.userid ? item.senderName : item.receiverName
       }}</template>
     </ShowChat>
-    <ShowChatDetail v-model="showDetail"></ShowChatDetail>
+    <ShowChatDetail v-if="showDetail" v-model="showDetail"></ShowChatDetail>
   </div>
   <div class="Chat" v-show="!isChat">
     <ShowMessage

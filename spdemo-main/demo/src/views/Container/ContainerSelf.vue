@@ -9,8 +9,9 @@ const defaultSrc = ref(
 const router = useRouter()
 const confirmLogout = () => {
   if (confirm('确定要退出吗？')) {
-    // deleteTokenFromRepository();
+    localStorage.clear()
     alert('已退出登录')
+    router.push('/login')
   }
 }
 const handleCompany = () => {

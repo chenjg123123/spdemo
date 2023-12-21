@@ -41,19 +41,20 @@ const sendMessage = () => {
   websocket.value.send(JSON.stringify(sendMessageData.value))
   sendMessageData.value.content = ''
 }
-const scrollToBottom = () => {
-  const height = ref()
+const scrollToBottom = async () => {
+  const height = ref(10)
   if (userStore.chat) {
     height.value = 94.2 * userStore.chat.length
   }
   if (scroll.value) {
     console.log(height)
-    scroll.value.setScrollTop(height)
+    scroll.value.setScrollTop(height.value)
   }
 }
 
 onMounted(() => {
   // 这里建立 WebSocket 连接
+  console.log(123)
   websocket.value = new WebSocket(
     `ws://localhost:8080/websocket/${userStore.userid}`
   )
@@ -62,7 +63,9 @@ onMounted(() => {
   websocket.value.onclose = (event) => onClose(event)
   websocket.value.onmessage = (event) => onMessage(event)
   websocket.value.onerror = (event) => onError(event)
-  scrollToBottom()
+  setTimeout(() => {
+    scrollToBottom()
+  }, 500)
 })
 watch(
   () => userStore.chat,
@@ -70,7 +73,7 @@ watch(
     vLoading.value = true
     setTimeout(() => {
       scrollToBottom()
-    }, 50)
+    }, 500)
     vLoading.value = false
   },
   { deep: true }

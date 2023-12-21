@@ -274,9 +274,9 @@ public class MessagelistController {
                 System.out.println(userid[1]);
                 MessageClient.put(messagelist.getMessageid(),userid);
             }
-            System.out.println(MessageClient.get(messagelist.getMessageid()));
+
             Integer[] userid =  MessageClient.get(messagelist.getMessageid());
-            if(clients.containsKey(userid[0].toString()) && clients.containsKey(userid[1])) {
+            if(clients.containsKey(userid[0].toString()) && clients.containsKey(userid[1].toString())) {
                 log.info("send2");
                 clients.get(userid[0].toString()).session.getBasicRemote().sendText(JSON.toJSONString(messagelist));
                 clients.get(userid[1].toString()).session.getBasicRemote().sendText(JSON.toJSONString(messagelist));

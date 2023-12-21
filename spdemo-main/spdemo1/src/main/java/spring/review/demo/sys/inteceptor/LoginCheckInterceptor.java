@@ -46,7 +46,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         // 如果token为空，返回未登录信息
         if (!StringUtils.hasLength(jwt)) {
-            Result error = Result.error("未登录");
+            Result error = Result.login();
             String notLogin = JSONObject.toJSONString(error);
             response.getWriter().write(notLogin);
             return false;

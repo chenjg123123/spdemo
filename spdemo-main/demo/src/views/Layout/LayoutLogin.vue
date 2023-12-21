@@ -70,6 +70,7 @@ const onLogin = async () => {
     const res = await userLoginService(formModel.value)
     userStore.setToken(res.data.data.token.tokentest)
     userStore.user = res.data.data.username
+    userStore.userid = res.data.data.username.id
     router.push('/')
   }
 }

@@ -92,24 +92,26 @@ onMounted(() => {
     </div>
   </el-scrollbar>
   <!-- </div> -->
-  <div class="main" v-loading="loading">
-    <show-society
-      v-for="(item, index) in societyListData"
-      :key="item.sid"
-      @click="getinter(item.sid)"
-      :src="picUrls[index] ? picUrls[index].url1 : null"
-      :src1="
-        picUrls[index]
-          ? picUrls[index].url2
+  <keep-alive>
+    <div class="main" v-loading="loading">
+      <show-society
+        v-for="(item, index) in societyListData"
+        :key="item.sid"
+        @click="getinter(item.sid)"
+        :src="picUrls[index] ? picUrls[index].url1 : null"
+        :src1="
+          picUrls[index]
             ? picUrls[index].url2
-            : picUrls[index].url1
-          : null
-      "
-    >
-      <template #title>{{ item.title }}</template>
-      <template #username>{{ item.username }}</template>
-    </show-society>
-  </div>
+              ? picUrls[index].url2
+              : picUrls[index].url1
+            : null
+        "
+      >
+        <template #title>{{ item.title }}</template>
+        <template #username>{{ item.username }}</template>
+      </show-society>
+    </div>
+  </keep-alive>
 </template>
 
 <style scoped lang="scss">

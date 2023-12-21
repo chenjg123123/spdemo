@@ -19,7 +19,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class="Header">社区</div>
+  <div class="Header">业务</div>
   <div class="showMain">
     <ShowPicture
       v-for="(item, index) in communityData"
