@@ -1,28 +1,39 @@
+<template>
+  <div class="Header">
+    <NavBar class="bar" left-text="返回" left-arrow @click-left="onClickLeft" />
+    <h2 class="Title">收藏业务</h2>
+  </div>
+  <br /><br /><br /><br />
+  <div class="collection">
+    <ShowCollection
+      v-for="index in Info.length"
+      :key="index"
+      :data="Info[index - 1]"
+    />
+  </div>
+</template>
+
 <script setup>
 import { NavBar } from 'vant'
+// import { getCollectByid } from "@/api/user.js";
 import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores'
+import ShowCollection from '@/components/ShowCollection.vue'
+const userStore = useUserStore()
 const router = useRouter()
 const onClickLeft = () => {
   router.go(-1)
 }
+const Info = ref([])
+const init = async () => {
+  // const res = await getCollectByid(userStore.userid);
+  Info.value = [{}, {}, {}, {}]
+}
+onMounted(() => {
+  init()
+})
 </script>
-<template>
-  <div>
-    <NavBar
-      class="bar"
-      left-text="返回"
-      title="历史业务"
-      left-arrow
-      @click-left="onClickLeft"
-    />
-
-    <div class="His">
-      <div class="showHisWrapper">
-        <ShowHis v-for="index in 5" :key="index"></ShowHis>
-      </div>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .Header {
@@ -45,14 +56,15 @@ const onClickLeft = () => {
   position: fixed;
   z-index: 50;
 }
-.showHisWrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 100px; /* 可选，设置间隔 */
-}
 .Title {
   margin: 0 auto;
   font-size: inherit;
   font-weight: inherit;
+}
+.collection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 750px;
 }
 </style>

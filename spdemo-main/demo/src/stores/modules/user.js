@@ -13,7 +13,16 @@ export const useUserStore = defineStore(
     const userid = ref()
     const messageId = ref()
     const chat = ref()
-    return { token, setToken, removeToken, userid, messageId, chat }
+    const user = ref()
+    return {
+      token,
+      setToken,
+      removeToken,
+      userid,
+      messageId,
+      chat,
+      user
+    }
   },
   {
     persist: true

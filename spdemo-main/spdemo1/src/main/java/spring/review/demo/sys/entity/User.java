@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -41,7 +42,7 @@ public class User implements Serializable {
      * 用户性别1男0女
      */
     @TableField("sex")
-    private Char usex;
+    private char usex;
 
     /**
      * 用户手机号
@@ -74,6 +75,9 @@ public class User implements Serializable {
      * 更新时间
      */
     private String  avatar;
+    @TableField(exist = false)
+    private File file;
+
     private String  profile;
 
     private LocalDateTime updateTime;

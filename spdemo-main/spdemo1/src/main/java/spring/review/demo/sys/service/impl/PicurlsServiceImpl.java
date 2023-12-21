@@ -16,5 +16,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PicurlsServiceImpl extends ServiceImpl<PicurlsMapper, Picurls> implements IPicurlsService {
-
+    public Picurls insertAndGet(Picurls picurls){
+        this.saveOrUpdate(picurls);
+        return picurls;
+    }
 }

@@ -25,6 +25,12 @@ public class Result<T> {
 
         return result;
     }
+    public static <T> Result<T> success(String mesg) {
+        Result<T> result = new Result<T>();
+        result.msg = mesg;
+        result.code = 1;
+        return result;
+    }
 
     public static <T> Result<T> success(String key, Object object, String msg) {
         Result<T> result = new Result<>();

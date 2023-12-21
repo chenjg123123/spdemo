@@ -1,7 +1,13 @@
 package spring.review.demo.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.sun.istack.Nullable;
+
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -15,6 +21,7 @@ public class Picurls implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(type = IdType.AUTO)
     private Integer picurlsid;
 
     private String url1;
@@ -33,7 +40,7 @@ public class Picurls implements Serializable {
     /**
      * 创建时间
      */
-    private LocalTime createTimne;
+    private LocalTime createTime;
 
     /**
      * 修改时间	
@@ -45,6 +52,32 @@ public class Picurls implements Serializable {
      */
     private Integer companiesId;
 
+    /**
+     * 设置图片地址
+     * @return
+     */
+    public void SetPic(@Nullable String pic1,@Nullable String pic2,@Nullable String pic3,@Nullable String pic4){
+            url1 = pic1;   url2 = pic2 ;url3 = pic3;url4 = pic4;
+    }
+
+    /**
+     * 设置图片地址参数数组
+     * @return
+     */
+    public void SetPic(ArrayList<String> arrayList){
+        if(arrayList.size()>0){
+            url1 = arrayList.get(0);
+        }
+        if(arrayList.size()>1){
+            url2 = arrayList.get(1);
+        }
+        if(arrayList.size()>2){
+            url3 = arrayList.get(2);
+        }
+        if(arrayList.size()>3){
+            url4 = arrayList.get(3);
+        }
+    }
     public Integer getPicurlsid() {
         return picurlsid;
     }
@@ -88,11 +121,11 @@ public class Picurls implements Serializable {
         this.isUser = isUser;
     }
     public LocalTime getCreateTimne() {
-        return createTimne;
+        return createTime;
     }
 
     public void setCreateTimne(LocalTime createTimne) {
-        this.createTimne = createTimne;
+        this.createTime = createTimne;
     }
     public LocalTime getUpdateTime() {
         return updateTime;
@@ -118,7 +151,7 @@ public class Picurls implements Serializable {
             ", url3=" + url3 +
             ", url4=" + url4 +
             ", isUser=" + isUser +
-            ", createTimne=" + createTimne +
+            ", createTimne=" + createTime +
             ", updateTime=" + updateTime +
             ", companiesId=" + companiesId +
         "}";

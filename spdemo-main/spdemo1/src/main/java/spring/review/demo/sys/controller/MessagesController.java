@@ -70,9 +70,12 @@ public class MessagesController {
         if(user1==null||user2==null){
             return Result.error("聊天打开失败");
         }
-        LambdaQueryWrapper<Companies> companiesLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        companiesLambdaQueryWrapper.eq(Companies::getCompanyId,user2);
-        Companies one1 = companiesService.getOne(companiesLambdaQueryWrapper);
+        LambdaQueryWrapper<User> companiesLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        companiesLambdaQueryWrapper.eq(User::getId,user2);
+        User one1 = userService.getOne(companiesLambdaQueryWrapper);
+        LambdaQueryWrapper<Companies> companiesLambdaQueryWrapper1 = new LambdaQueryWrapper<>();
+        companiesLambdaQueryWrapper1.eq(Companies::getCompanyId,one1.getCompanyId());
+        Companies one3 = companiesService.getOne(companiesLambdaQueryWrapper1);
         LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
         userLambdaQueryWrapper.eq(User::getId,user1);
         User one2 = userService.getOne(userLambdaQueryWrapper);
@@ -83,9 +86,9 @@ public class MessagesController {
         if(one==null){
             Messages messages = new Messages();
             messages.setSenderId(user1);
-            messages.setSenderName(one1.getCompanyName());
-            messages.setReceiverCompanyId(user2);
             messages.setSenderName(one2.getUname());
+            messages.setReceiverCompanyId(user2);
+            messages.setReceiverName(one3.getCompanyName());
             messages.setCreateTime(LocalDateTime.now());
             messagesService.save(messages);
             one = messagesService.getOne(messagesLambdaQueryWrapper);

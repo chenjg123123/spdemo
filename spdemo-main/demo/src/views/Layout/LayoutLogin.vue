@@ -69,7 +69,7 @@ const onLogin = async () => {
     await form.value.validate()
     const res = await userLoginService(formModel.value)
     userStore.setToken(res.data.data.token.tokentest)
-    userStore.userid = res.data.data.username
+    userStore.user = res.data.data.username
     router.push('/')
   }
 }
@@ -140,7 +140,7 @@ watch(isRegister, () => {
     flex-direction: column;
     justify-content: center;
     user-select: none;
-    background: url('@/assets/backgroud/b2.jpg') no-repeat center/cover;
+    // background: url('@/assets/backgroud/b2.jpg') no-repeat center/cover;
     padding: 20px;
   }
   h1 {

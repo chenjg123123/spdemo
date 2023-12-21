@@ -1,34 +1,48 @@
-<script setup></script>
 <template>
-  <div class="main">
-    <div class="date"><h1>原神刷图业务</h1></div>
-    <div class="title"><h3>原神3.5</h3></div>
-    <div class="content"><h6>刷图抢宝箱</h6></div>
+  <NavBar class="bar" title="收藏业务" left-arrow @click-left="onClickLeft" />
+  <div class="collection">
+    <ShowCollection
+      v-for="item in Info"
+      :key="item.collectId"
+      :name="item.workName"
+      :location="item.workLocations"
+      :sal="item.workRemuneration"
+      @click="handleCollect(item.communityId)"
+    >
+    </ShowCollection>
   </div>
 </template>
-<style scoped lang="scss">
-.main {
-  width: 98%;
-  height: 250px;
-  margin: 5px auto;
-  border: 3px black solid;
-  border-radius: 16px;
+
+<script setup>
+import { NavBar } from 'vant'
+import { getCollectByid } from '@/api/user.js'
+import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores'
+const userStore = useUserStore()
+const router = useRouter()
+const onClickLeft = () => {
+  router.go(-1)
+}
+const Info = ref()
+const init = async () => {
+  const res = await getCollectByid(userStore.userid)
+  Info.value = res.data.data.data
+}
+onMounted(() => {
+  init()
+})
+const handleCollect = (id) => {
+  router.push(`/Container/societyCommunity/${id}`)
+}
+</script>
+
+<style scoped>
+.collection {
+  width: 100%;
+  height: 80%;
   display: flex;
-  flex-direction: column;
-  .date {
-    margin-left: 20px;
-  }
-  .title {
-    margin-left: 50px;
-    h3 {
-      margin: 0;
-    }
-  }
-  .content {
-    margin-left: 60px;
-    h6 {
-      margin: 10px;
-    }
-  }
+  margin: 50px 30px 70px 30px;
+  flex-wrap: wrap;
 }
 </style>

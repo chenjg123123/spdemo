@@ -1,21 +1,34 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '../../stores'
+const userStore = useUserStore()
+const defaultSrc = ref(
+  'https://tse2-mm.cn.bing.net/th/id/OIP-C.eSpAhJ8i75zSrfa1cacOQgHaHa?w=194&h=194&c=7&r=0&o=5&dpr=2&pid=1.7'
+)
+const router = useRouter()
 const confirmLogout = () => {
   if (confirm('确定要退出吗？')) {
     // deleteTokenFromRepository();
     alert('已退出登录')
   }
 }
+const handleCompany = () => {
+  router.push(`/container/CompanyIntro/${userStore.user.companyId}`)
+}
 </script>
-
 <template>
-  <!-- <div class="Header">个人中心</div> -->
-  <br /><br /><br /><br /><br />
+  <div class="Header">个人中心</div>
   <div class="aaa">
     <el-col :span="10">
       <div class="demo-basic--circle">
-        <div class="block">
-          <el-avatar :size="125" :src="circleUrl" style="">头像</el-avatar>
+        <div class="block" style="display: flex">
+          <el-avatar
+            :size="125"
+            style="padding-top;: 50px"
+            :src="userStore.user ? userStore.user.avatar : defaultSrc"
+            >头像</el-avatar
+          >
           <div
             class="user-info"
             style="
@@ -25,7 +38,7 @@ const confirmLogout = () => {
             "
           >
             <p>
-              用户名: YourUserName
+              用户名: {{ userStore.user.uname }}
               <router-link
                 to="/container/self-setting"
                 style="text-decoration: none; color: inherit"
@@ -35,21 +48,17 @@ const confirmLogout = () => {
                 </button>
               </router-link>
             </p>
-            <p>公司: 米哈游</p>
           </div>
         </div>
         <br />
         <hr />
         <div class="ellipse-window">
-          <div style="display: flex; align-items: center">
+          <div
+            style="display: flex; align-items: center"
+            @click="handleCompany"
+          >
             <el-avatar :size="50" :src="circleUrl"></el-avatar>
-            <div class="user-info" style="margin-left: 40px">
-              <router-link
-                to="/container/CompanyIntro"
-                style="text-decoration: none; color: inherit"
-                >公司介绍</router-link
-              >
-            </div>
+            <div class="user-info" style="margin-left: 40px">公司介绍</div>
           </div>
           <hr style="border: 1px dashed #000" />
           <div style="display: flex; align-items: center">
@@ -75,18 +84,17 @@ const confirmLogout = () => {
           </div>
           <hr />
           <div>
-            <br />
-            <button
+            <el-button
               @click="confirmLogout()"
               style="
                 vertical-align: middle;
-                margin-left: 0px;
+                margin: auto;
                 width: 100%;
-                height: 50px;
+                height: 60px;
               "
             >
               退出登录
-            </button>
+            </el-button>
           </div>
           <br />
           <hr />
@@ -121,17 +129,18 @@ const confirmLogout = () => {
   position: fixed;
   z-index: 50;
 }
-.main {
-  display: flex;
-  // flex-wrap: wrap;
-  justify-content: center;
-  // margin-bottom: 100px;
-}
+// .main {
+//   display: flex;
+//   // flex-wrap: wrap;
+//   justify-content: center;
+//   // margin-bottom: 100px;
+// }
 .aaa {
   display: flex;
   // align-items: center;
   justify-content: center;
   height: 750px;
   border-radius: 30px;
+  margin: 100px auto 60px auto;
 }
 </style>

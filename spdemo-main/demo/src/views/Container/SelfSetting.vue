@@ -8,6 +8,7 @@ const router = useRouter()
 const imgUrl = ref()
 const userStore = useUserStore()
 const Info = ref()
+const formData = ref()
 const ruleForm = ref({
   imageUrl: [],
   sex: '',
@@ -25,26 +26,43 @@ const formdata = ref({
   uphone: '',
   profile: ''
 })
-const uploadFile = () => {
-  console.log(1234) // 这里添加上传文件逻辑
+const uploadFile = (item) => {
+  ruleForm.value.imageUrl[0] = item.raw // 图片文件
+  imgUrl.value = URL.createObjectURL(item.raw) // 图片上传浏览器回显地址
+  console.log(formData.value.imageUrl[0], 'imageUrl')
 }
 const submitForm = async () => {
   // 添加表单提交逻辑，包括向后端提交图片数据的逻辑
-  formdata.value.usex = ruleForm.value.sex
-  formdata.value.avatar = ruleForm.value.imageUrl[0]
-  formdata.value.uname = ruleForm.value.name
-  formdata.value.uphone = ruleForm.value.phone
-  formdata.value.profile = ruleForm.value.message
-  const res = await updataById(formdata.value)
+
+  // formdata.value.usex = ruleForm.value.sex
+  // formdata.value.file = ruleForm.value.imageUrl[0]
+  // formdata.value.uname = ruleForm.value.name
+  // formdata.value.uphone = ruleForm.value.phone
+  // formdata.value.profile = ruleForm.value.message
+  let formInfo = new FormData()
+  formInfo.append('usex', ruleForm.value.sex)
+  formInfo.append('file', ruleForm.value.imageUrl[0])
+  formInfo.append('uname', ruleForm.value.name)
+  formInfo.append('uphone', ruleForm.value.phone)
+  formInfo.append('profile', ruleForm.value.message)
+  formInfo.append('id', userStore.userid)
+  // formInfo.append('data', formdata.value)
+  for (const pair of formInfo.entries()) {
+    console.log(pair[0], pair[1])
+  }
+
+  const res = await updataById(formInfo)
+  if (res.data.code === 1) {
+    userStore.user = res.data.data.one
+    ElMessage.success(res.data.msg)
+  }
+  onClickLeft()
 }
 
-const resetForm = () => {
-  // 添加表单重置逻辑
-}
-const handleAvatarSuccess = (response, uploadFile) => {
-  imgUrl.value = URL.createObjectURL(uploadFile.raw)
-  ruleForm.value.imageUrl[0] = imgUrl
-}
+// const handleAvatarSuccess = (response, uploadFile) => {
+//   imgUrl.value = URL.createObjectURL(uploadFile.raw)
+//   ruleForm.value.imageUrl[0] = imgUrl
+// }
 
 const beforeAvatarUpload = (rawFile) => {
   if (rawFile.type !== 'image/jpeg') {
@@ -65,12 +83,12 @@ const init = async () => {
   const res = await getUserInfo(userStore.userid)
   Info.value = res.data.data
   ruleForm.value.sex = Info.value.Info.usex
-  imgUrl.value = Info.value.Info.avatar
+  imgUrl.value = userStore.user.avatar
   ruleForm.value.name = Info.value.Info.uname
-  ruleForm.value.company = Info.value.company.companyName
   ruleForm.value.phone = Info.value.Info.uphone
-  ruleForm.value.companyAddress = Info.value.company.companyAddress
   ruleForm.value.message = Info.value.Info.profile
+  ruleForm.value.company = Info.value.company.companyName
+  ruleForm.value.companyAddress = Info.value.company.companyAddress
 }
 //onMounted
 onMounted(() => {
@@ -98,11 +116,14 @@ onMounted(() => {
       <el-form-item label="头像" prop="imageUrl">
         <el-upload
           class="avatar-uploader"
-          action="/api/user/upload"
           :show-file-list="false"
           :before-upload="beforeAvatarUpload"
-          :on-success="handleAvatarSuccess"
+          action
+          :on-change="uploadFile"
         >
+          <!-- action="/api/user/upload" -->
+          <!-- :on-success="handleAvatarSuccess" -->
+
           <img
             v-if="imgUrl"
             :src="imgUrl"
@@ -135,7 +156,6 @@ onMounted(() => {
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm()">Submit</el-button>
-        <el-button @click="resetForm()">Reset</el-button>
       </el-form-item>
     </el-form>
   </div>

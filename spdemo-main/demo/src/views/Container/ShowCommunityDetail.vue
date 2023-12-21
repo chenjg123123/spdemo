@@ -2,6 +2,7 @@
 import { NavBar, Sidebar, SidebarItem, Icon } from 'vant'
 import { onMounted, ref } from 'vue'
 import { chatWithId, getMessageListById } from '@/api/chat.js'
+import { getIsCollect, collectOrnot } from '@/api/community.js'
 import { useRouter } from 'vue-router'
 import { getById } from '@/api/community.js'
 import { useUserStore } from '@/stores'
@@ -13,6 +14,7 @@ const refSrc = ref(
 const redtrue = ref(0)
 const router = useRouter()
 const showDetail = ref(false)
+const test = router.currentRoute.value.params.id
 
 //methods
 const handlershowDetail = async () => {
@@ -30,6 +32,12 @@ const handleDescription = () => {
 const onClickLeft = () => {
   router.go(-1)
 }
+const handleCollect = async () => {
+  const res = await collectOrnot(userStore.userid, parseInt(test))
+  GetCollect(userStore.userid, parseInt(test))
+  ElMessage.success(res.data.msg)
+}
+const isCollect = ref()
 const idInfo = ref({
   picurls: '',
   comunity: ''
@@ -39,10 +47,14 @@ const GetuserInterService = async (ids) => {
   idInfo.value = { ...res.data.data }
   console.log(idInfo.value)
 }
+const GetCollect = async (userId, companyId) => {
+  const res = await getIsCollect(userId, parseInt(companyId))
+  isCollect.value = res.data.data.code
+}
 //onmounted
 onMounted(() => {
-  const test = router.currentRoute.value.params.id
   GetuserInterService(test)
+  GetCollect(userStore.userid, parseInt(test))
 })
 </script>
 <template>
@@ -67,7 +79,22 @@ onMounted(() => {
         />
       </div>
       <sidebar-item title="点赞" @click="handleThum" />
-      <sidebar-item title="收藏" />
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+        "
+      >
+        <Icon
+          :class="{ red: isCollect === 1 }"
+          name="star-o"
+          size="30px"
+          @click="handleCollect"
+        />
+      </div>
+      <sidebar-item title="收藏" @click="handleCollect" />
       <sidebar-item title="私聊" @click="handlershowDetail" />
       <sidebar-item title="简介" @click="handleDescription" />
     </sidebar>

@@ -14,6 +14,7 @@ const picUrls = ref()
 const loading = ref(false)
 const router = useRouter()
 const selected = ref()
+const isUpload = ref(false)
 //method
 const getinter = async (id) => {
   router.push(`/container/society/${id}`)
@@ -42,6 +43,12 @@ const search = () => {
   router.push(`/container/searchkey/${searchKey.value}`)
   searchKey.value = ''
 }
+const handleOpen = () => {
+  isUpload.value = true
+}
+const colseUpload = () => {
+  isUpload.value = false
+}
 //onMounted
 onMounted(() => {
   getList()
@@ -49,6 +56,7 @@ onMounted(() => {
 })
 </script>
 <template>
+  <Upload v-model="isUpload" :method1="colseUpload"></Upload>
   <div class="Header">
     <span>搜索</span>
     <el-input
@@ -65,7 +73,7 @@ onMounted(() => {
       @click="search()"
       >搜索</el-button
     >
-    <el-icon size="30px"><Plus /></el-icon>
+    <el-icon size="30px" @click="handleOpen"><Plus /></el-icon>
   </div>
   <!-- <div class="navtabbar"> -->
   <el-scrollbar>

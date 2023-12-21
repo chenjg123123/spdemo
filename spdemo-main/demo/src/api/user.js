@@ -27,7 +27,12 @@ export const getUserInfo = (userId) => {
     }
   })
 }
-//
-export const updataById = (user) => {
-  return request.post('/user/update', user)
+//更新个人信息
+export const updataById = (form) => {
+  console.log(form)
+  return request.put('/user/update', form, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
 }

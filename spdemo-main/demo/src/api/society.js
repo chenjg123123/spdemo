@@ -33,3 +33,12 @@ export const searchBykeyForTitle = (title, currentPage, size) => {
     }
   })
 }
+//上传新社区
+export const uploadSociety = (form) => {
+  console.log(form)
+  return request.put('/society/upload', form, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}

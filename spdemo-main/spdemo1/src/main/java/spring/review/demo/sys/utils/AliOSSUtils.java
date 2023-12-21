@@ -23,12 +23,16 @@ public class AliOSSUtils {
     /**
      * 实现上传图片到OSS
      */
-    public String upload(MultipartFile file) throws IOException {
+    public  String upload(MultipartFile file) throws IOException {
 
-        String endpoint = aliOSSProperties.getEndpoint();
-        String bucketName = aliOSSProperties.getBucketName();
-        String accessKeyId = aliOSSProperties.getAccessKeyId();
-        String accessKeySecret = aliOSSProperties.getAccessKeySecret();
+//        String endpoint = aliOSSProperties.getEndpoint();
+//        String bucketName = aliOSSProperties.getBucketName();
+//        String accessKeyId = aliOSSProperties.getAccessKeyId();
+//        String accessKeySecret = aliOSSProperties.getAccessKeySecret();
+        String endpoint= "https://oss-cn-guangzhou.aliyuncs.com";
+        String accessKeyId= "LTAI5tFuAcUcZFsbWnpLjcWA";
+        String accessKeySecret= "nWhzxHgc2Yc8kPvK6JONbJioWmOuCn";
+        String bucketName= "lnu-liang-web-tlias";
 
         // 获取上传的文件的输入流
         InputStream inputStream = file.getInputStream();

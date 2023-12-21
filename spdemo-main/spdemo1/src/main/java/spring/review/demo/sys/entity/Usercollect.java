@@ -35,7 +35,7 @@ public class Usercollect implements Serializable {
     /**
      * 业务名
      */
-    private Integer demandId;
+    private Integer communityId;
 
     /**
      * 创建时间
